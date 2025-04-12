@@ -1,0 +1,21 @@
+- Quá trình xác thực (Auth)
+    src\utils\create-resource-id.js
+    src\api\auth\index.js
+    src\contexts\auth-context.js
+    src\hooks\use-auth.js  -> cung cấp thông tin của user khi đăng nhập cho các component khác
+    src\pages\index.js
+
+- Cấu trúc thanh menu theo từng role: src\layouts\dashboard\config.js
+
+- Folder src/section: thể hiện các section trong 1 màn hình
+    VD: 
+    src\sections\settings\settings-password.js:         code phần thao đổi password trong màn setting
+    src\sections\settings\settings-notifications.js:    code phần tùy chọn thông báo trong màn setting
+    -> 2 phần này được tổng hợp lại trong src\pages\settings.js
+
+
+- useAuth() (src\hooks\use-auth.js) -> cung cấp thông tin của user khi đăng nhập cho các component khác
+VD: useAuth() cấp thông tin user cho Page (src\pages\account.js) 
+    -> truyền prop cho AccountProfile (src/sections/account/account-profile)
+
+- Page (src\pages\account.js) là mục Account khi ấn vào ảnh avatar

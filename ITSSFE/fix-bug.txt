@@ -1,0 +1,60 @@
+1.Fix bug lỗi không delete được employee
+src\sections\employee\employee-data-management.js
+dòng 32: deleteEmployeeById -> deleteStaffById
+dòng 32: router.push(paths.employees.index) -> router.push(paths.staff.index)
+
+2.Fix bug lỗi edit phòng gym
+src\pages\gyms\index.js
+dòng 185: thêm hàm onClick
+src\sections\gym\room-card.js
+dòng 10: thêm useEffect
+
+src\pages\gyms\index.js
+dòng 94: khởi tạo giá trị mặc định: const [selectedRoom, setSelectedRoom] = React.useState(rooms[0]);
+
+3.fix avatar
+src={`/assets/avatars/${user.avatar}`}
+
+4.
+src\pages\gyms\index.js
+src\sections\gym\room-add-form.js
+Sửa thuộc tính container -> container="true"
+
+5.
+comment lại thuộc tính isLiked, likes
+// isLiked: PropTypes.bool.isRequired,
+// likes: PropTypes.number.isRequired,
+
+6.
+src\sections\employee\employee-basic-details.js
+dòng 30: role: PropTypes.number -> role: PropTypes.string
+
+7.
+src\api\rooms\index.js
+dòng 32: const response = await axios.post(`${this.baseUrl}/room`, newRoom);
+-> const response = await axios.post(`${this.baseUrl}/room/`, newRoom);
+
+8.Sửa lại tính năng đăng ký
+src\pages\auth\register.js: sửa lại
+    initialValues = {
+    gmail: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+    confirmPass: "",
+    policy: false,
+    };
+
+src\api\auth\index.js: sửa lại async signUp(request)
+
+9. xóa tất cả liên quan thuộc tính "icon" trong src\sections\overview\pricing-plan.js
+
+10.Sửa mục staff acc admin: đã có thể add thêm nv mới
+
+11.Sửa mục staff acc admin: đã có thể edit staff
+
+12.Thêm toaster
+Tạo Provider trong folder utils
+src\layouts\dashboard\layout.js : dòng 52 thêm Provider
+
+13.Fix bug delete phòng mục Gyms (chỉ hiện ra những room có is_deleted === "false")
