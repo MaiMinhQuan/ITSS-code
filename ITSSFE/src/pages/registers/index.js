@@ -39,7 +39,7 @@ const useRegiss = (search) => {
   const getRegiss = useCallback(async () => {
     try {
       const response = await registersApi.getRegisters(search);
-      console.log(response);
+      console.log("getRegiss: ", response);
       if (isMounted()) {
         setState({
           regiss: response.data,

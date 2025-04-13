@@ -94,7 +94,6 @@ export const UserEditForm = (props) => {
         <CardContent sx={{ pt: 0 }}>
           <Grid container spacing={3}>
             {/* //first name */}
-            {console.log("customer", customer)}
             <Grid xs={12} md={6}>
               <TextField
                 error={!!(formik.touched.first_name && formik.errors.first_name)}

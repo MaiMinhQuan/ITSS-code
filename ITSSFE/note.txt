@@ -19,3 +19,5 @@ VD: useAuth() cấp thông tin user cho Page (src\pages\account.js)
     -> truyền prop cho AccountProfile (src/sections/account/account-profile)
 
 - Page (src\pages\account.js) là mục Account khi ấn vào ảnh avatar
+
+- Thanh sidebar ở: src\layouts\dashboard\side-nav.js

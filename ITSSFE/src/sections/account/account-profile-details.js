@@ -16,31 +16,49 @@ import {
 } from "@mui/material";
 import usersApi from "src/api/customers";
 import { useRouter } from "next/navigation";
+import { useAuth } from "src/hooks/use-auth";
+
+const AVATAR = Array.from({ length: 24 }, (_, index) => `avatar_${index + 1}.jpg`);
 
 const initialValues = (user) => {
-  if (user)
+  const today = new Date().toISOString().slice(0, 10);
+  if (user) {
+    user.birth = user.birth.slice(0, 10);
     return {
-      first_name: user.first_name ? user.first_name : "",
-      last_name: user.last_name ? user.last_name : "",
-      gender: user.gender ? user.gender : "",
-      birth: user.birth ? user.birth.slice(0, 10) : "",
-      gmail: user.gmail ? user.gmail : "",
-      phone: user.phone ? user.phone : "",
+      last_name: user.last_name || "",
+      first_name: user.first_name || "",
+      gender: user.gender || "male",
+      birth: user.birth || today,
+      gmail: user.gmail || "",
+      phone: user.phone || "",
+      role_id: user.role_id || 1,
+      role_name: user.role_name || "",
       submit: null,
+      avatar: user.avatar || "avatar_default.jpg",
+      is_deleted: false,
+      password: user.password,
+      id: user.id,
     };
+  }
+
   return {
-    first_name: "",
-    gender: "male",
-    birth: new Date().toISOString().slice(0, 10),
     gmail: "",
+    first_name: "",
     last_name: "",
+    password: "",
     phone: "",
-    submit: null,
+    is_deleted: false,
+    birth: new Date().toISOString().slice(0, 10),
+    gender: "",
+    role_name: "",
+    role_id: 2,
+    avatar: "avatar_default.jpg",
   };
 };
 
 export const AccountProfileDetails = (props) => {
   const { user, ...other } = props;
+  const auth = useAuth();
   const router = useRouter();
   const formik = useFormik({
     initialValues: initialValues(user),
@@ -54,16 +72,23 @@ export const AccountProfileDetails = (props) => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        const updateUser = {
-          ...user,
-          ...values,
-        };
-        console.log(updateUser);
-        usersApi.updateUserById(user.id, updateUser);
+        // const updateUser = {
+        //   ...user,
+        //   ...values,
+        // };
+        // console.log(updateUser);
+        // usersApi.updateUserById(user.id, updateUser);
+        // helpers.setStatus({ success: true });
+        // helpers.setSubmitting(false);
+        // toast.success("User updated");
+        usersApi.updateCustomerById(values);
         helpers.setStatus({ success: true });
         helpers.setSubmitting(false);
         toast.success("User updated");
-        router.push("/");
+        // router.push("/");
+
+        auth.signOut();
+        router.push("/auth/login");
       } catch (err) {
         console.error(err);
         toast.error("Something went wrong!");
@@ -81,19 +106,20 @@ export const AccountProfileDetails = (props) => {
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
             <Grid container spacing={3}>
+              {/* //first name */}
               <Grid xs={12} md={6}>
                 <TextField
-                  error={!!(formik.touched.last_name && formik.errors.last_name)}
+                  error={!!(formik.touched.first_name && formik.errors.first_name)}
                   fullWidth
-                  helperText={formik.touched.last_name && formik.errors.last_name}
+                  helperText={formik.touched.first_name && formik.errors.first_name}
                   label="First name"
                   name="first_name"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  required
                   value={formik.values.first_name}
                 />
               </Grid>
+              {/* //last name */}
               <Grid xs={12} md={6}>
                 <TextField
                   error={!!(formik.touched.last_name && formik.errors.last_name)}
@@ -106,6 +132,7 @@ export const AccountProfileDetails = (props) => {
                   value={formik.values.last_name}
                 />
               </Grid>
+              {/* //email */}
               <Grid xs={12} md={6}>
                 <TextField
                   error={!!(formik.touched.gmail && formik.errors.gmail)}
@@ -119,6 +146,7 @@ export const AccountProfileDetails = (props) => {
                   value={formik.values.gmail}
                 />
               </Grid>
+              {/* //Phone number */}
               <Grid xs={12} md={6}>
                 <TextField
                   error={!!(formik.touched.phone && formik.errors.phone)}
@@ -131,6 +159,7 @@ export const AccountProfileDetails = (props) => {
                   value={formik.values.phone}
                 />
               </Grid>
+              {/* //Gender */}
               <Grid xs={12} md={6}>
                 <TextField
                   select
@@ -144,13 +173,27 @@ export const AccountProfileDetails = (props) => {
                   value={formik.values.gender}
                 >
                   <MenuItem key={"male"} value={"male"}>
-                    male
+                    Male
                   </MenuItem>
                   <MenuItem key={"female"} value={"female"}>
-                    female
+                    Female
                   </MenuItem>
                 </TextField>
               </Grid>
+              {/* //Password */}
+              <Grid xs={12} md={6}>
+                <TextField
+                  error={!!(formik.touched.password && formik.errors.password)}
+                  fullWidth
+                  helperText={formik.touched.password && formik.errors.password}
+                  label="Password"
+                  name="password"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.password}
+                />
+              </Grid>
+              {/* //birthday */}
               <Grid xs={12} md={6}>
                 <TextField
                   error={!!(formik.touched.birth && formik.errors.birth)}
@@ -163,6 +206,26 @@ export const AccountProfileDetails = (props) => {
                   onChange={formik.handleChange}
                   value={formik.values.birth}
                 />
+              </Grid>
+              {/* //Avatar */}
+              <Grid xs={12} md={6}>
+                <TextField
+                  select
+                  error={!!(formik.touched.avatar && formik.errors.avatar)}
+                  fullWidth
+                  helperText={formik.touched.avatar && formik.errors.avatar}
+                  label="Avatar"
+                  name="avatar"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.avatar}
+                >
+                  {AVATAR.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
             </Grid>
           </Box>
