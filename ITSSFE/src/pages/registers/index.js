@@ -10,6 +10,7 @@ import { RegisDrawer } from "src/sections/register/regis-drawer";
 import { RegisListContainer } from "src/sections/register/regis-list-container";
 import { RegisListSearch } from "src/sections/register/regis-list-search";
 import { RegisListTable } from "src/sections/register/regis-list-table";
+import { RegisCreate } from "src/sections/register/regis-drawer/regis-create.js";
 
 const useSearch = () => {
   const [search, setSearch] = React.useState({
@@ -39,7 +40,7 @@ const useRegiss = (search) => {
   const getRegiss = useCallback(async () => {
     try {
       const response = await registersApi.getRegisters(search);
-      console.log("getRegiss: ", response);
+      //console.log("getRegiss: ", response);
       if (isMounted()) {
         setState({
           regiss: response.data,
@@ -71,10 +72,10 @@ const useRegiss = (search) => {
   );
 
   const updateRegis = useCallback(
-    async (regissId, regissData) => {
+    async (regissData, regissId) => {
       try {
         // Make an API call to update an existing regiss
-        const response = await registersApi.updateRegisterById(regissId, regissData);
+        const response = await registersApi.updateRegisterById(regissData, regissId);
         console.log(response);
         if (isMounted()) {
           setState((prevState) => {
@@ -122,6 +123,11 @@ const Page = () => {
 
     return regiss.find((regis) => regis.id === drawer.data);
   }, [drawer, regiss]);
+
+  const [openModalCreate, setOpenModalCreate] = useState(false);
+  const onCloseModelCreate = () => {
+    setOpenModalCreate(false);
+  };
 
   usePageView();
 
@@ -252,6 +258,9 @@ const Page = () => {
                     }
                     variant="contained"
                     onClick={handleClickAdd}
+                    // onClick={() => {
+                    //   setOpenModalCreate(true);
+                    // }}
                   >
                     Add
                   </Button>
@@ -286,6 +295,11 @@ const Page = () => {
             createRegis={createRegis}
             updateRegis={updateRegis}
           />
+          {/* <RegisCreate
+            onClose={onCloseModelCreate}
+            open={openModalCreate}
+            createRegis={createRegis}
+          /> */}
         </Box>
       </Box>
     </>

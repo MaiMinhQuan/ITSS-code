@@ -77,9 +77,9 @@ class RegistersApi {
     }
   }
 
-  async updateRegisterById(id, updatedRegister) {
+  async updateRegisterById(updatedRegister, id) {
     try {
-      const response = await axios.put(`${this.baseUrl}/register/${id}`, updatedRegister);
+      const response = await axios.patch(`${this.baseUrl}/register/${id}`, updatedRegister);
       return response.data;
     } catch (error) {
       console.error(`Error while updating register with ID ${id}:`, error);

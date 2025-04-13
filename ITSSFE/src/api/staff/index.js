@@ -61,6 +61,20 @@ class StaffApi {
     });
   }
 
+  async getTrainer() {
+    try {
+      const response = await axios.get(`${this.baseUrl}/user/staff`);
+      //data = response.data.filter((customer) => customer.is_deleted !== true);
+      return response.data.filter(
+        (user) => user.role_name === "TRAINER" && user.is_deleted !== true
+      );
+    } catch (error) {
+      console.error("Error while fetching staff:", error);
+      window.location.href = "/500";
+      return null;
+    }
+  }
+
   async getStaffById(id) {
     try {
       const response = await axios.get(`${this.baseUrl}/user/${id}`);

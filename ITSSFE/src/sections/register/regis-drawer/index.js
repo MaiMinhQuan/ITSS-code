@@ -33,7 +33,8 @@ export const RegisDrawer = (props) => {
   }, []);
 
   let content = null;
-  const register = valueRegis(regis,regisCount);
+  const register = valueRegis(regis, regisCount);
+  //console.log("register in regis-drawer: ", register);
 
   content = (
     <div>
@@ -77,6 +78,7 @@ export const RegisDrawer = (props) => {
             regis={register}
             createRegis={createRegis}
             updateRegis={updateRegis}
+            setIsEditing={setIsEditing}
           />
         )}
       </Box>
