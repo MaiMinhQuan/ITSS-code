@@ -10,12 +10,17 @@ export const UserBasicDetails = (props) => {
 
   return (
     <Card {...other}>
-      <CardHeader title="Customer Details" />
+      <CardHeader title="Thông tin chi tiết" />
       <PropertyList>
-        <PropertyListItem align={align} divider label="Gender" value={gender} />
-        <PropertyListItem align={align} divider label="Birthday" value={birthday} />
+        <PropertyListItem
+          align={align}
+          divider
+          label="Giới tính"
+          value={gender === "male" ? "Nam" : "Nữ"}
+        />
+        <PropertyListItem align={align} divider label="Sinh nhật" value={birthday} />
         <PropertyListItem align={align} divider label="Email" value={email} />
-        <PropertyListItem align={align} divider label="Phone" value={phone} />
+        <PropertyListItem align={align} divider label="Số điện thoại" value={phone} />
       </PropertyList>
     </Card>
   );

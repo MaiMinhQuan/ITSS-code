@@ -24,7 +24,8 @@ const useChartOptions = () => {
         show: false,
       },
     },
-    colors: [theme.palette.primary.main, alpha(theme.palette.primary.main, 0.25)],
+    //colors: [theme.palette.primary.main, alpha(theme.palette.primary.main, 0.25)],
+    colors: ["#FF7F50", alpha("#FF7F50", 0.25)], // Đổi sang màu đỏ
     dataLabels: {
       enabled: false,
     },
@@ -94,7 +95,7 @@ const useChartOptions = () => {
     },
     yaxis: {
       labels: {
-        formatter: (value) => (value > 0 ? `${value}K` : `${value}`),
+        formatter: (value) => (value > 0 ? `${value}.000.000đ` : `${value}`),
         offsetX: -10,
         style: {
           colors: theme.palette.text.secondary,
@@ -111,20 +112,20 @@ export const OverviewSales = (props) => {
   return (
     <Card sx={sx}>
       <CardHeader
-        action={
-          <Button
-            color="inherit"
-            size="small"
-            startIcon={
-              <SvgIcon fontSize="small">
-                <ArrowPathIcon />
-              </SvgIcon>
-            }
-          >
-            Sync
-          </Button>
-        }
-        title="Sales"
+        // action={
+        //   <Button
+        //     color="inherit"
+        //     size="small"
+        //     startIcon={
+        //       <SvgIcon fontSize="small">
+        //         <ArrowPathIcon />
+        //       </SvgIcon>
+        //     }
+        //   >
+        //     Sync
+        //   </Button>
+        // }
+        title="Doanh thu hàng tháng"
       />
       <CardContent>
         <Chart height={350} options={chartOptions} series={chartSeries} type="bar" width="100%" />

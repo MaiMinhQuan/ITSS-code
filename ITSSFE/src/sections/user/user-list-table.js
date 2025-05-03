@@ -68,6 +68,7 @@ const useSelectionModel = (users) => {
 };
 
 export const UserListTable = ({
+  query,
   users,
   usersCount,
   onPageChange,
@@ -88,6 +89,24 @@ export const UserListTable = ({
   //   ...other
   // } = props;
   const { deselectAll, selectAll, deselectOne, selectOne, selected } = useSelectionModel(users);
+  //console.log("Query in UserListTable", query);
+
+  useEffect(() => {
+    // const searchTerms = query.toLowerCase().trim().split(/\s+/);
+    // const userList = state.userStore || [];
+    // const userQuery = userList.filter((user) => {
+    //   const fullName = `${user.first_name} ${user.last_name}`.toLowerCase();
+    //   return searchTerms.every(
+    //     (term) =>
+    //       fullName.includes(term) ||
+    //       user.first_name.toLowerCase().includes(term) ||
+    //       user.last_name.toLowerCase().includes(term)
+    //   );
+    // });
+    // console.log("userQuery", userQuery);
+    // setState(0);
+    // console.log("state1", state);
+  }, [query]);
 
   const handleToggleAll = useCallback(
     (event) => {
@@ -100,6 +119,27 @@ export const UserListTable = ({
       }
     },
     [selectAll, deselectAll]
+  );
+
+  const updateUserQuery = useCallback(
+    (userList) => {
+      //console.log("Query in updateUserQuery", query);
+      const searchTerms = query.toLowerCase().trim().split(/\s+/);
+
+      // Lọc danh sách user
+      const userQuery = userList.filter((user) => {
+        const fullName = `${user.first_name} ${user.last_name}`.toLowerCase();
+        return searchTerms.every(
+          (term) =>
+            fullName.includes(term) ||
+            user.first_name.toLowerCase().includes(term) ||
+            user.last_name.toLowerCase().includes(term)
+        );
+      });
+
+      return userQuery;
+    },
+    [query]
   );
 
   const selectedAll = selected.length === users.length;
@@ -153,25 +193,26 @@ export const UserListTable = ({
         <Table sx={{ minWidth: 700 }}>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
+              {/* <TableCell padding="checkbox">
                 <Checkbox
                   checked={selectedAll}
                   indeterminate={selectedSome}
                   onChange={handleToggleAll}
                 />
-              </TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Gender</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell align="right">Action</TableCell>
+              </TableCell> */}
+              <TableCell>Tên</TableCell>
+              <TableCell>Giới tính</TableCell>
+              <TableCell>Số điện thoại</TableCell>
+              <TableCell align="right">Cập nhật</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => {
+            {updateUserQuery(users).map((user) => {
+              //updateUserQuery(users)
               const isSelected = selected.includes(user.id);
               return (
                 <TableRow hover key={user.id} selected={isSelected}>
-                  <TableCell padding="checkbox">
+                  {/* <TableCell padding="checkbox">
                     <Checkbox
                       checked={isSelected}
                       onChange={(event) => {
@@ -185,7 +226,7 @@ export const UserListTable = ({
                       }}
                       value={isSelected}
                     />
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <Stack alignItems="center" direction="row" spacing={1}>
                       <Avatar
@@ -212,7 +253,7 @@ export const UserListTable = ({
                       </div>
                     </Stack>
                   </TableCell>
-                  <TableCell>{user.gender}</TableCell>
+                  <TableCell>{user.gender === "male" ? "Nam" : "Nữ"}</TableCell>
                   <TableCell>{user.phone}</TableCell>
                   <TableCell align="right">
                     <IconButton component={NextLink} href={paths.customers.edit(user.id)}>

@@ -44,7 +44,7 @@ export const PackageCreateForm = (props) => {
         router.push(paths.packages.index);
       } catch (err) {
         console.error(err);
-        toast.error("Something went wrong!");
+        toast.error("Lỗi!");
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
         helpers.setSubmitting(false);
@@ -82,7 +82,7 @@ export const PackageCreateForm = (props) => {
                   type="number"
                   value={formik.values.price}
                 />
-                  <TextField
+                <TextField
                   error={!!(formik.touched.time && formik.errors.time)}
                   fullWidth
                   label="Time"

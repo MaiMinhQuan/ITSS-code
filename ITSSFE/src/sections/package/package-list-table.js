@@ -38,8 +38,10 @@ export const PackageListTable = (props) => {
     rowsPerPage,
     deletePackage,
     updatePackage,
+    query1,
     ...other
   } = props;
+
   const [currentPackage, setCurrentPackage] = useState({
     id: "",
     name: "",
@@ -52,6 +54,8 @@ export const PackageListTable = (props) => {
     price: "",
     description: "",
   });
+
+  //console.log("packages in list table: ", packages);
 
   useEffect(() => {
     setUpdatedPackage({
@@ -122,20 +126,23 @@ export const PackageListTable = (props) => {
   const handlePackageUpdate = useCallback(
     (packageId) => {
       // packagesApi.updatePackageById(packageId, updatedPackage);
+      console.log("updatedPackage", updatedPackage);
       updatePackage(packageId, updatedPackage);
+      //console.log("Hello from package list table");
       setCurrentPackage({
         id: "",
         name: "",
         price: "",
         description: "",
       });
-      toast.success("Package updated");
+      toast.success("Thành công");
     },
     [updatedPackage]
   );
 
   const handlePackageDelete = useCallback((packageId) => {
     // packagesApi.deletePackageById(packageId);
+    console.log("Hello from handlePackageDelete");
     deletePackage(packageId);
     setCurrentPackage({
       id: "",
@@ -143,8 +150,24 @@ export const PackageListTable = (props) => {
       price: "",
       description: "",
     });
-    toast.error("Package cannot be deleted");
+    toast.success("Thành công");
   }, []);
+
+  const updatePackageQuery = useCallback(
+    (packageList) => {
+      //console.log("Query in updateUserQuery", query);
+      const searchTerms = query1.toLowerCase().trim().split(/\s+/);
+
+      // Lọc danh sách user
+      const packageQuery = packageList.filter((package1) => {
+        const packageName = `${package1.name}`.toLowerCase();
+        return searchTerms.every((term) => packageName.includes(term));
+      });
+
+      return packageQuery;
+    },
+    [query1]
+  );
 
   return (
     <div {...other}>
@@ -153,16 +176,16 @@ export const PackageListTable = (props) => {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell>Name</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Time</TableCell>
-              <TableCell>Description</TableCell>
+              <TableCell>Tên gói tập</TableCell>
+              <TableCell>Giá</TableCell>
+              <TableCell>Thời gian</TableCell>
+              <TableCell>Mô tả</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {packages.map((pack) => {
+            {updatePackageQuery(packages).map((pack) => {
               if (!pack._deleted) {
-                console.log(pack);
+                //console.log(pack);
                 const isCurrent = pack.id === currentPackage.id;
                 const price = numeral(pack.price).format(`${pack.currency}0,0.00`);
 
@@ -235,7 +258,7 @@ export const PackageListTable = (props) => {
                           <CardContent>
                             <Grid container spacing={3}>
                               <Grid item md={12} xs={12}>
-                                <Typography variant="h6">Package details</Typography>
+                                <Typography variant="h6">Chi tiết</Typography>
                                 <Divider sx={{ my: 2 }} />
                               </Grid>
                               <Grid item md={6} xs={12}>
@@ -244,22 +267,20 @@ export const PackageListTable = (props) => {
                                     defaultValue={pack.name}
                                     onChange={handleName}
                                     fullWidth
-                                    label="Package name"
+                                    label="Tên gói tập"
                                     name="name"
                                   />
-                                  <Grid container >
+                                  <Grid container>
                                     <Grid md={6} pr={0.5}>
                                       <TextField
                                         defaultValue={pack.price}
                                         onChange={handlePrice}
                                         fullWidth
-                                        label="Price"
+                                        label="Giá"
                                         name="price"
                                         InputProps={{
                                           startAdornment: (
-                                            <InputAdornment position="start">
-                                              $
-                                            </InputAdornment>
+                                            <InputAdornment position="start">đ</InputAdornment>
                                           ),
                                         }}
                                         type="number"
@@ -270,13 +291,11 @@ export const PackageListTable = (props) => {
                                         defaultValue={pack.time}
                                         onChange={handleTime}
                                         fullWidth
-                                        label="Time"
+                                        label="Thời gian"
                                         name="time"
                                         InputProps={{
                                           startAdornment: (
-                                            <InputAdornment position="start">
-                                              month
-                                            </InputAdornment>
+                                            <InputAdornment position="start">tháng</InputAdornment>
                                           ),
                                         }}
                                         type="number"
@@ -290,7 +309,7 @@ export const PackageListTable = (props) => {
                                   defaultValue={pack.description}
                                   onChange={handleDes}
                                   fullWidth
-                                  label="Description"
+                                  label="Mô tả"
                                   name="description"
                                   multiline
                                   rows={4}
@@ -308,25 +327,27 @@ export const PackageListTable = (props) => {
                             <Stack alignItems="center" direction="row" spacing={2}>
                               <Button
                                 onClick={() => {
+                                  console.log("Hello");
                                   handlePackageUpdate(pack.id);
                                 }}
                                 type="submit"
                                 variant="contained"
                               >
-                                Update
+                                Cập nhật
                               </Button>
                               <Button color="inherit" onClick={handlePackageClose}>
-                                Cancel
+                                Hủy
                               </Button>
                             </Stack>
                             <div>
                               <Button
                                 onClick={() => {
+                                  console.log("Hello from delete");
                                   handlePackageDelete(pack.id);
                                 }}
                                 color="error"
                               >
-                                Delete package
+                                Xóa
                               </Button>
                             </div>
                           </Stack>
@@ -342,7 +363,7 @@ export const PackageListTable = (props) => {
       </Scrollbar>
       <TablePagination
         component="div"
-        count={packagesCount}
+        count={updatePackageQuery(packages).length}
         onPageChange={onPageChange}
         onRowsPerPageChange={onRowsPerPageChange}
         page={page}

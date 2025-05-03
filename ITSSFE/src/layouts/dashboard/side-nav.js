@@ -57,7 +57,7 @@ export const SideNav = (props) => {
         }}
       >
         <Box sx={{ p: 3 }}>
-          <Box
+          {/* <Box
             component={NextLink}
             href="/"
             sx={{
@@ -67,7 +67,7 @@ export const SideNav = (props) => {
             }}
           >
             <Logo />
-          </Box>
+          </Box> */}
           <Box
             sx={{
               alignItems: "center",
@@ -82,10 +82,10 @@ export const SideNav = (props) => {
           >
             <div>
               <Typography color="inherit" variant="subtitle1">
-                GymCenter
+                EliteGym System
               </Typography>
               <Typography color="neutral.400" variant="body2">
-                Group 4
+                Nhóm 4
               </Typography>
             </div>
             <SvgIcon fontSize="small" sx={{ color: "neutral.500" }}>

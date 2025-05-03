@@ -32,7 +32,7 @@ export const SocialTimeline = (props) => {
                 authorAvatar={post.author.avatar}
                 authorName={post.author.name}
                 comments={post.comments}
-                createdAt={post.createdAt}
+                createdAt={post.createdAt.slice(0, 10)}
                 // isLiked={post.isLiked}
                 // likes={post.likes}
                 media={post.media}

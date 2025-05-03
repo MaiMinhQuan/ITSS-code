@@ -36,16 +36,24 @@ export const AccountProfile = (props) => {
             {user.gmail}
           </Typography>
           <Typography color="text.secondary" variant="body2">
-            {user.role_name}
+            {user.role_name === "MANAGER"
+              ? "Quản lý"
+              : user.role_name === "TRAINER"
+              ? "Huấn luyện viên"
+              : user.role_name === "SALE"
+              ? "Sale"
+              : user.role_name === "CUSTOMER_CARE"
+              ? "Chăm sóc khách hàng"
+              : ""}
           </Typography>
         </Box>
       </CardContent>
       <Divider />
-      <CardActions>
+      {/* <CardActions>
         <Button fullWidth variant="text">
           Upload picture
         </Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };

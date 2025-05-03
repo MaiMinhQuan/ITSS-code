@@ -11,11 +11,31 @@ export const EmployeeBasicDetails = (props) => {
     <Card {...other}>
       <CardHeader title="Staff Details" />
       <PropertyList>
-        <PropertyListItem align={align} divider label="Gender" value={gender} />
-        <PropertyListItem align={align} divider label="Birthday" value={birthday.slice(0, 10)} />
+        <PropertyListItem
+          align={align}
+          divider
+          label="Giới tính"
+          value={gender === "male" ? "Nam" : "Nữ"}
+        />
+        <PropertyListItem align={align} divider label="Sinh nhật" value={birthday.slice(0, 10)} />
         <PropertyListItem align={align} divider label="Email" value={email} />
-        <PropertyListItem align={align} divider label="Phone" value={phone} />
-        <PropertyListItem align={align} divider label="Role" value={role} />
+        <PropertyListItem align={align} divider label="Số điện thoại" value={phone} />
+        <PropertyListItem
+          align={align}
+          divider
+          label="Vai trò"
+          value={
+            role === "MANAGER"
+              ? "Quản lý"
+              : role === "TRAINER"
+              ? "Huấn luyện viên"
+              : role === "SALE"
+              ? "Sale"
+              : role === "CUSTOMER_CARE"
+              ? "Chăm sóc khách hàng"
+              : ""
+          }
+        />
       </PropertyList>
     </Card>
   );

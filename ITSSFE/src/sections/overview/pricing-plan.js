@@ -17,8 +17,8 @@ export const PricingPlan = (props) => {
       <Box sx={{ p: 3 }}>
         <Box sx={{ display: "flex" }}>
           <Typography variant="h4">
-            {currency}
             {price}
+            {currency}
           </Typography>
           <Typography
             color="text.secondary"
@@ -28,7 +28,7 @@ export const PricingPlan = (props) => {
             }}
             variant="subtitle2"
           >
-            /month
+            /tháng
           </Typography>
         </Box>
         <Typography sx={{ mt: 2 }} variant="h6">

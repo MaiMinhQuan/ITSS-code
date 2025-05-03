@@ -89,7 +89,7 @@ class CustomersApi {
     try {
       const response = await axios.get(`${this.baseUrl}/register/customer/${id}`);
       let data = response.data;
-      //console.log("register response: ", data);
+      // console.log("register response 123: ", data);
       data = applySort(data, "created_at", "desc");
       if (data.length > 0) return data[0];
       return null;
@@ -101,7 +101,7 @@ class CustomersApi {
 
   async addProcessById(id, newActivity) {
     try {
-      const response = await axios.put(`${this.baseUrl}/process`, newActivity);
+      const response = await axios.post(`${this.baseUrl}/process`, newActivity);
       return response.data;
     } catch (error) {
       console.error(`Error while fetching customer with ID ${id}:`, error);

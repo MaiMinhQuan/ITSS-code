@@ -13,6 +13,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useUpdateEffect } from "src/hooks/use-update-effect";
+import { set } from "nprogress";
 
 const sortOptions = [
   {
@@ -31,6 +32,9 @@ export const UserListSearch = ({
   sortBy,
   sortDir,
   handleQueryChange,
+  // state,
+  // setState,
+  setQuery,
 }) => {
   // const { onFiltersChange, onSortChange, sortBy, sortDir, handleQueryChange } = props;
   const queryRef = useRef(null);
@@ -63,6 +67,33 @@ export const UserListSearch = ({
 
   const updateQuery = useCallback(() => {
     const query = queryRef.current?.value;
+    setQuery(query);
+    // console.log("Query", query);
+    // console.log("State in query", state);
+    // //updateStateByQuery(query); // Call the callback function to update the state by query
+    // const searchTerms = query.toLowerCase().trim().split(/\s+/);
+
+    // const userList = state.userStore || [];
+    // const userQuery = userList.filter((user) => {
+    //   const fullName = `${user.first_name} ${user.last_name}`.toLowerCase();
+    //   return searchTerms.every(
+    //     (term) =>
+    //       fullName.includes(term) ||
+    //       user.first_name.toLowerCase().includes(term) ||
+    //       user.last_name.toLowerCase().includes(term)
+    //   );
+    // });
+    // console.log("userQuery", userQuery);
+    // // setState(0);
+    // // console.log("state1", state);
+
+    // setState({
+    //   users: userQuery,
+    //   usersCount: userQuery.length,
+    //   userStore: userList,
+    // });
+
+    // console.log("users", state);
     setFilters((prevState) => ({
       ...prevState,
       query,
@@ -90,7 +121,7 @@ export const UserListSearch = ({
             defaultValue=""
             fullWidth
             inputProps={{ ref: queryRef }}
-            placeholder="Search users"
+            placeholder="Tìm kiếm theo tên khách hàng"
             startAdornment={
               <InputAdornment position="start">
                 <SvgIcon>
@@ -101,7 +132,7 @@ export const UserListSearch = ({
             onChange={updateQuery} // Change this line
           />
         </Box>
-        <TextField
+        {/* <TextField
           label="Sort By"
           name="sort"
           onChange={handleSortChange}
@@ -114,7 +145,7 @@ export const UserListSearch = ({
               {option.label}
             </option>
           ))}
-        </TextField>
+        </TextField> */}
       </Stack>
     </>
   );

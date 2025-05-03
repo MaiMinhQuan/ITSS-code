@@ -247,7 +247,7 @@ const Page = () => {
                 spacing={4}
               >
                 <div>
-                  <Typography variant="h4">Registers</Typography>
+                  <Typography variant="h4">Đăng ký gói tập</Typography>
                 </div>
                 <div>
                   <Button
@@ -262,7 +262,7 @@ const Page = () => {
                     //   setOpenModalCreate(true);
                     // }}
                   >
-                    Add
+                    Đăng ký
                   </Button>
                 </div>
               </Stack>

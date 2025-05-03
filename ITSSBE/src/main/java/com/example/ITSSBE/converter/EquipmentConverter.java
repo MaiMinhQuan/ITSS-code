@@ -1,7 +1,14 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.example.ITSSBE.converter;
 
 import com.example.ITSSBE.dto.EquipmentDTO;
-import com.example.ITSSBE.entity.*;
+import com.example.ITSSBE.entity.EpCategory;
+import com.example.ITSSBE.entity.Equipment;
+import com.example.ITSSBE.entity.Room;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,6 +17,10 @@ import org.springframework.stereotype.Component;
 public class EquipmentConverter {
     @Autowired
     private ModelMapper modelMapper;
+
+    public EquipmentConverter() {
+    }
+
     public EquipmentDTO toDTO(Equipment equipment) {
         EquipmentDTO equipmentDTO = new EquipmentDTO();
         equipmentDTO.setId(equipment.getId());
@@ -23,7 +34,7 @@ public class EquipmentConverter {
         return equipmentDTO;
     }
 
-    public Equipment toEntity(EquipmentDTO equipmentDTO, EpCategory epCategory, Room room){
+    public Equipment toEntity(EquipmentDTO equipmentDTO, EpCategory epCategory, Room room) {
         Equipment equipment = new Equipment();
         equipment.setCategory(epCategory);
         equipment.setRoom(room);

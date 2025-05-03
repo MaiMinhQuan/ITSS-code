@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
-import Head from 'next/head';
-import NextLink from 'next/link';
-import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
-import { Box, Button, Card, Container, Stack, SvgIcon, Typography } from '@mui/material';
-import packagesApi from 'src/api/packages';
-import { useMounted } from 'src/hooks/use-mounted';
-import { usePageView } from 'src/hooks/use-page-view';
-import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { paths } from 'src/paths';
-import { PackageListSearch } from 'src/sections/package/package-list-search';
-import { PackageListTable } from 'src/sections/package/package-list-table';
-import { useAuth } from 'src/hooks/use-auth';
+import { useCallback, useEffect, useState } from "react";
+import Head from "next/head";
+import NextLink from "next/link";
+import PlusIcon from "@untitled-ui/icons-react/build/esm/Plus";
+import { Box, Button, Card, Container, Stack, SvgIcon, Typography } from "@mui/material";
+import packagesApi from "src/api/packages";
+import { useMounted } from "src/hooks/use-mounted";
+import { usePageView } from "src/hooks/use-page-view";
+import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
+import { paths } from "src/paths";
+import { PackageListSearch } from "src/sections/package/package-list-search";
+import { PackageListTable } from "src/sections/package/package-list-table";
+import { useAuth } from "src/hooks/use-auth";
 
 const useSearch = () => {
   const [search, setSearch] = useState({
@@ -56,42 +56,48 @@ const usePackages = (search) => {
     getPackages();
   }, [search, getPackages]);
 
-  const deletePackage = useCallback(async (packageId) => {
-    try {
-      if (isMounted()) {
-        packagesApi.deletePackageById(packageId);
-        setState((prevState) => {
-          const updatedPackages = prevState.packages.filter((pkg) => pkg.id !== packageId);
-          return {
-            ...prevState,
-            packages: updatedPackages,
-            packagesCount: updatedPackages.length,
-          };
-        });
+  const deletePackage = useCallback(
+    async (packageId) => {
+      try {
+        if (isMounted()) {
+          packagesApi.deletePackageById(packageId);
+          setState((prevState) => {
+            const updatedPackages = prevState.packages.filter((pkg) => pkg.id !== packageId);
+            return {
+              ...prevState,
+              packages: updatedPackages,
+              packagesCount: updatedPackages.length,
+            };
+          });
+        }
+      } catch (err) {
+        console.error(err);
       }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isMounted]);
+    },
+    [isMounted]
+  );
 
-  const updatePackage = useCallback(async (packageId, updatedData) => {
-    try {
-      if (isMounted()) {
-        packagesApi.updatePackageById(packageId, updatedData);
-        setState((prevState) => {
-          const updatedPackages = prevState.packages.map((pkg) =>
-            pkg.id === packageId ? { ...pkg, ...updatedData } : pkg
-          );
-          return {
-            ...prevState,
-            packages: updatedPackages,
-          };
-        });
+  const updatePackage = useCallback(
+    async (packageId, updatedData) => {
+      try {
+        if (isMounted()) {
+          packagesApi.updatePackageById(packageId, updatedData);
+          setState((prevState) => {
+            const updatedPackages = prevState.packages.map((pkg) =>
+              pkg.id === packageId ? { ...pkg, ...updatedData } : pkg
+            );
+            return {
+              ...prevState,
+              packages: updatedPackages,
+            };
+          });
+        }
+      } catch (err) {
+        console.error(err);
       }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isMounted]);
+    },
+    [isMounted]
+  );
 
   return {
     ...state,
@@ -104,6 +110,7 @@ const PackageList = () => {
   const { search, updateSearch } = useSearch();
   const { packages, packagesCount, deletePackage, updatePackage } = usePackages(search);
   const role_name = useAuth().user.role_name;
+  const [query1, setQuery1] = useState("");
   usePageView();
 
   const handleFiltersChange = useCallback(
@@ -139,7 +146,7 @@ const PackageList = () => {
   return (
     <>
       <Head>
-        <title>Package List</title>
+        <title>Gói tập</title>
       </Head>
       <Box
         component="main"
@@ -152,15 +159,10 @@ const PackageList = () => {
           <Stack spacing={4}>
             <Stack direction="row" justifyContent="space-between" spacing={4}>
               <Stack spacing={1}>
-                <Typography variant="h4">Packages</Typography>
+                <Typography variant="h4">Gói tập</Typography>
               </Stack>
               {role_name === "MANAGER" && (
-
-                <Stack
-                  alignItems="center"
-                  direction="row"
-                  spacing={3}
-                >
+                <Stack alignItems="center" direction="row" spacing={3}>
                   <Button
                     component={NextLink}
                     href={paths.packages.create}
@@ -171,13 +173,13 @@ const PackageList = () => {
                     }
                     variant="contained"
                   >
-                    Add
+                    Thêm gói tập
                   </Button>
                 </Stack>
               )}
             </Stack>
             <Card>
-              <PackageListSearch onFiltersChange={handleFiltersChange} />
+              <PackageListSearch onFiltersChange={handleFiltersChange} setQuery1={setQuery1} />
               <PackageListTable
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleRowsPerPageChange}
@@ -187,6 +189,7 @@ const PackageList = () => {
                 rowsPerPage={search.rowsPerPage}
                 deletePackage={deletePackage}
                 updatePackage={updatePackage}
+                query1={query1}
               />
             </Card>
           </Stack>

@@ -124,7 +124,7 @@ export const RegisCreate = (props) => {
         }
       } catch (err) {
         console.error(err);
-        toast.error("Something went wrong!");
+        toast.error("Lỗi!");
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
         helpers.setSubmitting(false);

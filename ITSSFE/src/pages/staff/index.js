@@ -20,7 +20,7 @@ const useSearch = () => {
       role: undefined,
     },
     page: 0,
-    rowsPerPage: 5,
+    rowsPerPage: 25,
     sortBy: "updatedAt",
     sortDir: "desc",
   });
@@ -80,6 +80,8 @@ const Page = () => {
   const [openModalCreate, setOpenModalCreate] = useState(false);
   const { search, updateSearch } = useSearch();
   const { state, deleteStaff } = useStaff(search);
+  const [query, setQuery] = useState("");
+  const [role, setRole] = useState("ALL");
 
   usePageView();
 
@@ -139,7 +141,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Staff | GymCenter</title>
+        <title>Nhân viên | EliteGym System</title>
       </Head>
       <Box
         component="main"
@@ -152,8 +154,8 @@ const Page = () => {
           <Stack spacing={4}>
             <Stack direction="row" justifyContent="space-between" spacing={4}>
               <Stack spacing={1}>
-                <Typography variant="h4">Staff</Typography>
-                <Stack alignItems="center" direction="row" spacing={1}>
+                <Typography variant="h4">Nhân viên</Typography>
+                {/* <Stack alignItems="center" direction="row" spacing={1}>
                   <Button
                     color="inherit"
                     size="small"
@@ -176,7 +178,7 @@ const Page = () => {
                   >
                     Export
                   </Button>
-                </Stack>
+                </Stack> */}
               </Stack>
               <Stack alignItems="center" direction="row" spacing={3}>
                 <Button
@@ -190,7 +192,7 @@ const Page = () => {
                     setOpenModalCreate(true);
                   }}
                 >
-                  Add
+                  Thêm mới
                 </Button>
               </Stack>
             </Stack>
@@ -200,6 +202,8 @@ const Page = () => {
                 onSortChange={handleSortChange}
                 sortBy={search.sortBy}
                 sortDir={search.sortDir}
+                setQuery={setQuery}
+                setRole={setRole}
               />
               {state.staff && (
                 <EmployeeListTable
@@ -210,6 +214,8 @@ const Page = () => {
                   rowsPerPage={search.rowsPerPage}
                   page={search.page}
                   handleDeleteEmployee={handleDeleteStaff}
+                  query={query}
+                  role={role}
                 />
               )}
             </Card>

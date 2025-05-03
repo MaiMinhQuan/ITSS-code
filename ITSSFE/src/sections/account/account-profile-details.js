@@ -66,7 +66,7 @@ export const AccountProfileDetails = (props) => {
       first_name: Yup.string().max(255),
       gender: Yup.string(),
       birth: Yup.string(),
-      gmail: Yup.string().email("Must be a valid gmail").max(255).required("Email is required"),
+      gmail: Yup.string().email("Email phải hợp lệ").max(255).required("Yêu cầu nhập email"),
       last_name: Yup.string().max(255),
       phone: Yup.string().max(15),
     }),
@@ -84,14 +84,14 @@ export const AccountProfileDetails = (props) => {
         usersApi.updateCustomerById(values);
         helpers.setStatus({ success: true });
         helpers.setSubmitting(false);
-        toast.success("User updated");
+        toast.success("Thành công");
         // router.push("/");
 
         auth.signOut();
         router.push("/auth/login");
       } catch (err) {
         console.error(err);
-        toast.error("Something went wrong!");
+        toast.error("Lỗi!");
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
         helpers.setSubmitting(false);
@@ -102,7 +102,8 @@ export const AccountProfileDetails = (props) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Card>
-        <CardHeader subheader="The information can be edited" title="Profile" />
+        {/* subheader="Thông tin có thể được cập nhật" */}
+        <CardHeader title="Hồ sơ" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
             <Grid container spacing={3}>
@@ -112,7 +113,7 @@ export const AccountProfileDetails = (props) => {
                   error={!!(formik.touched.first_name && formik.errors.first_name)}
                   fullWidth
                   helperText={formik.touched.first_name && formik.errors.first_name}
-                  label="First name"
+                  label="Họ"
                   name="first_name"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -125,7 +126,7 @@ export const AccountProfileDetails = (props) => {
                   error={!!(formik.touched.last_name && formik.errors.last_name)}
                   fullWidth
                   helperText={formik.touched.last_name && formik.errors.last_name}
-                  label="Last name"
+                  label="Tên"
                   name="last_name"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -138,7 +139,7 @@ export const AccountProfileDetails = (props) => {
                   error={!!(formik.touched.gmail && formik.errors.gmail)}
                   fullWidth
                   helperText={formik.touched.gmail && formik.errors.gmail}
-                  label="Email address"
+                  label="Email"
                   name="gmail"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -152,7 +153,7 @@ export const AccountProfileDetails = (props) => {
                   error={!!(formik.touched.phone && formik.errors.phone)}
                   fullWidth
                   helperText={formik.touched.phone && formik.errors.phone}
-                  label="Phone number"
+                  label="Số điện thoại"
                   name="phone"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -166,17 +167,17 @@ export const AccountProfileDetails = (props) => {
                   error={!!(formik.touched.gender && formik.errors.gender)}
                   fullWidth
                   helperText={formik.touched.gender && formik.errors.gender}
-                  label="Gender"
+                  label="Giới tính"
                   name="gender"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   value={formik.values.gender}
                 >
                   <MenuItem key={"male"} value={"male"}>
-                    Male
+                    Nam
                   </MenuItem>
                   <MenuItem key={"female"} value={"female"}>
-                    Female
+                    Nữ
                   </MenuItem>
                 </TextField>
               </Grid>
@@ -186,7 +187,7 @@ export const AccountProfileDetails = (props) => {
                   error={!!(formik.touched.password && formik.errors.password)}
                   fullWidth
                   helperText={formik.touched.password && formik.errors.password}
-                  label="Password"
+                  label="Mật khẩu"
                   name="password"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -199,7 +200,7 @@ export const AccountProfileDetails = (props) => {
                   error={!!(formik.touched.birth && formik.errors.birth)}
                   fullWidth
                   helperText={formik.touched.birth && formik.errors.birth}
-                  label="Birthday"
+                  label="Sinh nhật"
                   name="birth"
                   type="date"
                   onBlur={formik.handleBlur}
@@ -233,7 +234,7 @@ export const AccountProfileDetails = (props) => {
         <Divider />
         <CardActions sx={{ justifyContent: "flex-end" }}>
           <Button type="submit" variant="contained">
-            Save changes
+            Lưu
           </Button>
         </CardActions>
       </Card>

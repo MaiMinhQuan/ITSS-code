@@ -25,7 +25,7 @@ export const Layout = (props) => {
   return (
     <LayoutRoot>
       <Head>
-        <title>Login | GymCenter</title>
+        <title>Đăng nhập</title>
       </Head>
       <Box
         component="header"
@@ -48,7 +48,7 @@ export const Layout = (props) => {
               spacing={1}
               sx={{ textDecoration: "none" }}
             >
-              <Box
+              {/* <Box
                 sx={{
                   display: "inline-flex",
                   height: 24,
@@ -56,7 +56,7 @@ export const Layout = (props) => {
                 }}
               >
                 <Logo />
-              </Box>
+              </Box> */}
               <Box
                 sx={{
                   color: "text.primary",
@@ -70,7 +70,7 @@ export const Layout = (props) => {
                   },
                 }}
               >
-                Gymcenter <span>Group 15</span>
+                EliteGym System <span>Nhóm 4</span>
               </Box>
             </Stack>
           </Stack>

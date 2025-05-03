@@ -27,10 +27,14 @@ import {
 } from "@mui/material";
 import { Scrollbar } from "src/components/scrollbar";
 import { paths } from "src/paths";
+import { el } from "date-fns/locale";
 
 const useSelectionModel = (employees) => {
+  // const employeeIds = useMemo(() => {
+  //   return employees.map((employee) => employee.id);
+  // }, [employees]);
   const employeeIds = useMemo(() => {
-    return employees.map((employee) => employee.id);
+    return Array.isArray(employees) ? employees.map((employee) => employee.id) : [];
   }, [employees]);
   const [selected, setSelected] = useState([]);
 
@@ -74,10 +78,12 @@ export const EmployeeListTable = (props) => {
     page,
     handleDeleteEmployee,
     rowsPerPage,
+    query,
+    role,
     ...other
   } = props;
   const { deselectAll, selectAll, deselectOne, selectOne, selected } = useSelectionModel(staff);
-
+  console.log("staff in list table:", staff);
   const handleToggleAll = useCallback(
     (event) => {
       const { checked } = event.target;
@@ -91,9 +97,9 @@ export const EmployeeListTable = (props) => {
     [selectAll, deselectAll]
   );
 
-  const selectedAll = selected.length === staff.length;
-  const selectedSome = selected.length > 0 && selected.length < staff.length;
-  const enableBulkActions = selected.length > 0;
+  // const selectedAll = selected.length === staff.length;
+  // const selectedSome = selected.length > 0 && selected.length < staff.length;
+  // const enableBulkActions = selected.length > 0;
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -109,59 +115,65 @@ export const EmployeeListTable = (props) => {
     setOpen(false);
   };
 
+  const updateStaffQuery = useCallback(
+    (staffList) => {
+      //console.log("Query in updateUserQuery", query);
+      const searchTerms = query.toLowerCase().trim().split(/\s+/);
+
+      // Lọc danh sách user
+      const staffQuery = staffList.filter((staff) => {
+        const fullName = `${staff.first_name} ${staff.last_name}`.toLowerCase();
+        return searchTerms.every(
+          (term) =>
+            fullName.includes(term) ||
+            staff.first_name.toLowerCase().includes(term) ||
+            staff.last_name.toLowerCase().includes(term)
+        );
+      });
+
+      return staffQuery;
+    },
+    [query]
+  );
+
+  const updateStaffByRole = useCallback(
+    (staffList) => {
+      if (role === "ALL") {
+        return staffList; // Trả về toàn bộ danh sách nếu role là "all"
+      }
+      return staffList.filter(
+        (employee) => employee.role_name.toUpperCase() === role.toUpperCase()
+      );
+    },
+    [role]
+  );
+
   return (
     <Box sx={{ position: "relative" }} {...other}>
-      {enableBulkActions && (
-        <Stack
-          direction="row"
-          spacing={2}
-          sx={{
-            alignItems: "center",
-            backgroundColor: (theme) =>
-              theme.palette.mode === "dark" ? "neutral.800" : "neutral.50",
-            display: enableBulkActions ? "flex" : "none",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            px: 2,
-            py: 0.5,
-            zIndex: 10,
-          }}
-        >
-          <Checkbox checked={selectedAll} indeterminate={selectedSome} onChange={handleToggleAll} />
-          <Button onClick={handleClickOpen} color="inherit" size="small">
-            Delete
-          </Button>
-          <Button color="inherit" size="small">
-            Edit
-          </Button>
-        </Stack>
-      )}
       <Scrollbar>
         <Table sx={{ minWidth: 700 }}>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
+              {/* <TableCell padding="checkbox">
                 <Checkbox
                   checked={selectedAll}
                   indeterminate={selectedSome}
                   onChange={handleToggleAll}
                 />
-              </TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>gender</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell align="right">Action</TableCell>
+              </TableCell> */}
+              <TableCell>Tên</TableCell>
+              <TableCell>Vai trò</TableCell>
+              <TableCell>Giới tính</TableCell>
+              <TableCell>Số điện thoại</TableCell>
+              <TableCell align="right">Cập nhật</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {staff.map((staff) => {
+            {updateStaffQuery(updateStaffByRole(staff)).map((staff) => {
               const isSelected = selected.includes(staff.id);
               return (
                 <TableRow hover key={staff.id} selected={isSelected}>
-                  <TableCell padding="checkbox">
+                  {/* <TableCell padding="checkbox">
                     <Checkbox
                       checked={isSelected}
                       onChange={(event) => {
@@ -175,7 +187,7 @@ export const EmployeeListTable = (props) => {
                       }}
                       value={isSelected}
                     />
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <Stack alignItems="center" direction="row" spacing={1}>
                       <Avatar
@@ -200,8 +212,19 @@ export const EmployeeListTable = (props) => {
                       </div>
                     </Stack>
                   </TableCell>
-                  <TableCell>{staff.role_name}</TableCell>
-                  <TableCell>{staff.gender}</TableCell>
+                  {/* <TableCell>{staff.role_name}</TableCell> */}
+                  <TableCell>
+                    {staff.role_name === "MANAGER"
+                      ? "Quản lý"
+                      : staff.role_name === "TRAINER"
+                      ? "Huấn luyện viên"
+                      : staff.role_name === "SALE"
+                      ? "Sale"
+                      : staff.role_name === "CUSTOMER_CARE"
+                      ? "Chăm sóc khách hàng"
+                      : ""}
+                  </TableCell>
+                  <TableCell>{staff.gender === "male" ? "Nam" : "Nữ"}</TableCell>
                   <TableCell>{staff.phone}</TableCell>
                   <TableCell align="right">
                     <IconButton component={NextLink} href={paths.staff.edit(staff.id)}>
@@ -222,7 +245,7 @@ export const EmployeeListTable = (props) => {
         onPageChange={onPageChange}
         onRowsPerPageChange={onRowsPerPageChange}
         page={page}
-        rowsPerPage={rowsPerPage}
+        rowsPerPage={rowsPerPage} //rowsPerPage
         rowsPerPageOptions={[5, 10, 25]}
       />
       <Dialog open={open} onClose={handleClose} aria-labelledby="draggable-dialog-title">

@@ -33,7 +33,7 @@ export const RoomCard = (props) => {
           {room.address}
         </Typography>
         <Typography color="text.secondary" sx={{ mt: 1 }} variant="body2">
-          {`Acreage: ${room.acreage} m²`}
+          {`Diện tích: ${room.acreage} m²`}
         </Typography>
       </CardContent>
       <Stack
@@ -48,19 +48,21 @@ export const RoomCard = (props) => {
         <Button
           variant="contained"
           onClick={() => {
+            onClick();
             onClickEdit(room);
           }}
         >
-          Edit
+          Cập nhật
         </Button>
         <Button
           color="error"
           variant="contained"
           onClick={() => {
+            onClick();
             onClickDelete(room.id);
           }}
         >
-          Delete
+          Xóa
         </Button>
       </Stack>
     </Card>

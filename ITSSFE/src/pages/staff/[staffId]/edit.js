@@ -49,7 +49,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Staff Edit</title>
+        <title>Cập nhật thông tin</title>
       </Head>
       <Box
         component="main"
@@ -75,7 +75,7 @@ const Page = () => {
                   <SvgIcon sx={{ mr: 1 }}>
                     <ArrowLeftIcon />
                   </SvgIcon>
-                  <Typography variant="subtitle2">Staff</Typography>
+                  <Typography variant="subtitle2">Danh sách nhân viên</Typography>
                 </Link>
               </div>
               <Stack

@@ -12,6 +12,7 @@ import { UserListSearch } from "src/sections/user/user-list-search";
 import { UserListTable } from "src/sections/user/user-list-table";
 import { UserEditForm } from "src/sections/user/user-edit-form";
 import { UserCreateForm } from "src/sections/user/user-create-form.js";
+import { set } from "nprogress";
 
 const useSearch = () => {
   const [search, setSearch] = useState({
@@ -56,6 +57,7 @@ const useCustomers = (search) => {
         setState({
           users: response.data,
           usersCount: response.count,
+          userStore: response.data,
         });
       }
     } catch (err) {
@@ -82,6 +84,7 @@ const useCustomers = (search) => {
   return {
     state,
     deleteCustomer,
+    setState,
   };
 };
 
@@ -89,7 +92,14 @@ const Page = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
   const { search, updateSearch } = useSearch();
-  const { state, deleteCustomer } = useCustomers(search);
+  const { state, deleteCustomer, setState } = useCustomers(search);
+  //console.log("state before", state);
+  const [query, setQuery] = useState("");
+  // setState(0);
+  // console.log("state after", state);
+  // const [state1, setState1] = useState(state);
+  // console.log("state1", state1);
+
   usePageView();
 
   const handleFiltersChange = useCallback(
@@ -145,10 +155,34 @@ const Page = () => {
     setOpenModalCreate(false);
   };
 
+  // const updateStateByQuery = (query) => {
+  //   console.log("state1 in function", state1);
+  //   const searchTerms = query.toLowerCase().trim().split(/\s+/);
+  //   console.log("state", state.userStore);
+  //   //Lọc danh sách user
+  //   const userList = state.userStore || [];
+  //   const userQuery = userList.filter((user) => {
+  //     const fullName = `${user.first_name} ${user.last_name}`.toLowerCase();
+  //     return searchTerms.every(
+  //       (term) =>
+  //         fullName.includes(term) ||
+  //         user.first_name.toLowerCase().includes(term) ||
+  //         user.last_name.toLowerCase().includes(term)
+  //     );
+  //   });
+
+  //   setState((prevState) => ({
+  //     ...prevState,
+  //     users: userQuery,
+  //     usersCount: userQuery.length,
+  //   }));
+  //   console.log("userQuery", userQuery);
+  // };
+
   return (
     <>
       <Head>
-        <title>Customers | GymCenter</title>
+        <title>Khách hàng | EliteGym System</title>
       </Head>
       <Box
         component="main"
@@ -161,8 +195,8 @@ const Page = () => {
           <Stack spacing={4}>
             <Stack direction="row" justifyContent="space-between" spacing={4}>
               <Stack spacing={1}>
-                <Typography variant="h4">Customers</Typography>
-                <Stack alignItems="center" direction="row" spacing={1}>
+                <Typography variant="h4">Khách hàng</Typography>
+                {/* <Stack alignItems="center" direction="row" spacing={1}>
                   <Button
                     color="inherit"
                     size="small"
@@ -185,7 +219,7 @@ const Page = () => {
                   >
                     Export
                   </Button>
-                </Stack>
+                </Stack> */}
               </Stack>
               <Stack alignItems="center" direction="row" spacing={3}>
                 <Button
@@ -199,7 +233,7 @@ const Page = () => {
                     setOpenModalCreate(true);
                   }}
                 >
-                  Add
+                  Thêm mới
                 </Button>
               </Stack>
             </Stack>
@@ -210,9 +244,14 @@ const Page = () => {
                 sortBy={search.sortBy}
                 sortDir={search.sortDir}
                 updateQuery={search.handleQueryChange} // Change prop name here
+                // state={state} // Pass the state to the search component
+                // setState={setState} // Pass the setState function to the search component
+                //updateStateByQuery={updateStateByQuery} // Add this line to pass the function
+                setQuery={setQuery} // Add this line to pass the function
               />
 
               <UserListTable
+                query={query}
                 users={state.users}
                 usersCount={state.usersCount}
                 onPageChange={handlePageChange}

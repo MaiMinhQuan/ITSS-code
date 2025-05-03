@@ -161,7 +161,7 @@ export const RegisEdit = (props) => {
           await wait(500);
           helpers.setStatus({ success: true });
           helpers.setSubmitting(false);
-          toast.success("Register updated");
+          toast.success("Thành công");
         } else {
           const newRegis = {
             ...regis,
@@ -185,11 +185,11 @@ export const RegisEdit = (props) => {
           await wait(500);
           helpers.setStatus({ success: true });
           helpers.setSubmitting(false);
-          toast.success("Register created");
+          toast.success("Thành công");
         }
       } catch (err) {
         console.error(err);
-        //toast.error("Something went wrong!");
+        //toast.error("Lỗi!");
         toast.success("Successfully");
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
@@ -225,16 +225,22 @@ export const RegisEdit = (props) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Stack spacing={3}>
-        <Typography variant="h6">{(regis.id && "Edits") || "New register"}</Typography>
+        <Typography variant="h6">{regis.id ? "Cập nhật" : "Đăng ký"}</Typography>
         <Stack spacing={3}>
           <TextField
             disabled
             fullWidth
-            label="Created By"
+            label="Tạo bởi"
             name="register_by_name"
             value={regis.register_by_name}
           />
-          <TextField disabled fullWidth label="Date" name="date" value={regis.created_at} />
+          <TextField
+            disabled
+            fullWidth
+            label="Ngày"
+            name="date"
+            value={regis.created_at.slice(0, 10)}
+          />
           {/* <TextField
             fullWidth
             label="Customer name"
@@ -274,7 +280,7 @@ export const RegisEdit = (props) => {
                 {`${option.first_name} ${option.last_name} - ${option.gmail}`}
               </Box>
             )}
-            renderInput={(params) => <TextField {...params} label="Customer" />}
+            renderInput={(params) => <TextField {...params} label="Khách hàng" />}
           />
           <Autocomplete
             id="coachSelect"
@@ -295,7 +301,7 @@ export const RegisEdit = (props) => {
                 {`${option.first_name} ${option.last_name} - ${option.gmail}`}
               </Box>
             )}
-            renderInput={(params) => <TextField {...params} label="Coach" />}
+            renderInput={(params) => <TextField {...params} label="Huấn luyện viên" />}
           />
           <Autocomplete
             id="packSelect"
@@ -318,13 +324,13 @@ export const RegisEdit = (props) => {
                 {option.name}
               </Box>
             )}
-            renderInput={(params) => <TextField {...params} label="Package" />}
+            renderInput={(params) => <TextField {...params} label="Gói" />}
           />
           <TextField
             id="totalAmountField"
             fullWidth
             autoHighlight
-            label="Total Amount"
+            label="Giá tiền"
             name="totalAmount"
             InputProps={{
               readOnly: true,
@@ -334,10 +340,10 @@ export const RegisEdit = (props) => {
         </Stack>
         <Stack alignItems="center" direction="row" flexWrap="wrap" spacing={2}>
           <Button color="primary" type="submit" size="small" variant="contained">
-            Save changes
+            Lưu
           </Button>
           <Button color="inherit" onClick={onCancel} size="small">
-            Cancel
+            Hủy
           </Button>
         </Stack>
       </Stack>

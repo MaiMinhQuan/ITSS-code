@@ -25,27 +25,37 @@ import AddIcon from "@mui/icons-material/Add";
 // import { useAuth } from "src/hooks/use-auth";
 import { createResourceId } from "src/utils/create-resource-id";
 import { useAuth } from "src/hooks/use-auth";
+import { useFormik } from "formik";
 
 export const UserLogs = (props) => {
-  const { register, logs, addLog, ...other } = props;
+  const { register, logs, addLog, getLogs, registerId, ...other } = props;
   const [openModal, setOpenModal] = useState(false);
-  const role = useAuth().user.role;
+  // const role = useAuth().user.role;
+  const role = useAuth().user.role_name;
+  // console.log("useAuth", useAuth());
+  // console.log("role in user logs", role);
 
   const trainer = register.trainer_name;
   const activityLogs = logs.map((log) => ({ ...log, trainer_name: trainer }));
+  // console.log("activityLogs", activityLogs);
+  // console.log("register in user logs", register);
 
   const onCloseModel = () => {
     setOpenModal(false);
   };
 
-  const onClickAdd = () => {
+  const onClickAdd = (activityLogs) => {
+    // console.log("activityLogs in onClickAdd", activityLogs);
     const newLog = {
-      id: createResourceId(),
-      created_at: new Date().toISOString(),
+      //id: createResourceId(),
+      //created_at: new Date().toISOString(),
       content: document.getElementById("activity").value,
-      register_id: 0,
+      created_at: document.getElementById("date").value,
+      register_id: registerId,
     };
+    console.log("newLog", newLog);
     addLog(newLog);
+    getLogs();
     setOpenModal(false);
   };
   return (
@@ -53,7 +63,19 @@ export const UserLogs = (props) => {
       <CardHeader
         action={
           <Grid container spacing={2}>
-            {role === "MANAGER" || role === "TRAINER" && (
+            {/* {role === "MANAGER" ||
+              (role === "TRAINER" && (
+                <IconButton
+                  aria-label="add"
+                  color="primary"
+                  onClick={() => {
+                    setOpenModal(true);
+                  }}
+                >
+                  <AddIcon />
+                </IconButton>
+              ))} */}
+            {(role === "MANAGER" || role === "TRAINER") && (
               <IconButton
                 aria-label="add"
                 color="primary"
@@ -67,15 +89,15 @@ export const UserLogs = (props) => {
             <MoreMenu />
           </Grid>
         }
-        title="Recent Activity"
+        title="Hoạt động gần đây"
       />
       <Scrollbar>
         <Table sx={{ minWidth: 700 }}>
           <TableHead>
             <TableRow>
-              <TableCell>Trainer</TableCell>
-              <TableCell>Content</TableCell>
-              <TableCell>Date</TableCell>
+              <TableCell>Huấn luyện viên</TableCell>
+              <TableCell>Nội dung</TableCell>
+              <TableCell>Ngày</TableCell>
             </TableRow>
           </TableHead>
           {activityLogs && (
@@ -99,13 +121,24 @@ export const UserLogs = (props) => {
       </Scrollbar>
       <Dialog open={openModal} onClose={onCloseModel}>
         <Card sx={{ width: "400px" }}>
-          <CardHeader title="Add activity" />
+          <CardHeader title="Thêm hoạt động" />
           <CardContent sx={{ pt: "0px" }}>
-            <TextField label="Activity" name="activity" id="activity" />
+            <TextField label="Hoạt động" name="activity" id="activity" />
           </CardContent>
           <CardContent sx={{ pt: "0px", justifyContent: "flex-end " }}>
-            <TextField label="Date" name="date" id="date" />
+            <TextField label="Ngày" name="date" id="date" type="date" />
           </CardContent>
+          {/* <TextField
+            error={!!(formik.touched.birth && formik.errors.birth)}
+            fullWidth
+            helperText={formik.touched.birth && formik.errors.birth}
+            label="Birthday"
+            name="birth"
+            type="date"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.birth}
+          /> */}
           <Stack
             direction={{
               xs: "column",
@@ -115,11 +148,11 @@ export const UserLogs = (props) => {
             spacing={3}
             sx={{ p: 3 }}
           >
-            <Button variant="contained" onClick={onClickAdd}>
-              Add
+            <Button variant="contained" onClick={() => onClickAdd(activityLogs)}>
+              Thêm
             </Button>
             <Button color="inherit" onClick={onCloseModel}>
-              Cancel
+              Hủy
             </Button>
           </Stack>
         </Card>

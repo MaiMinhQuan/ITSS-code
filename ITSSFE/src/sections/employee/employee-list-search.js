@@ -13,23 +13,28 @@ import {
   TextField,
 } from "@mui/material";
 import { useUpdateEffect } from "src/hooks/use-update-effect";
+import { set } from "nprogress";
 
 const tabs = [
   {
     label: "All",
-    value: "all",
+    value: "ALL",
   },
   {
-    label: "Caring",
-    value: "caring",
+    label: "Quản lý",
+    value: "MANAGER",
   },
   {
-    label: "Coach",
-    value: "coach",
+    label: "Chăm sóc khách hàng",
+    value: "CUSTOMER_CARE",
+  },
+  {
+    label: "Huấn luyện viên",
+    value: "TRAINER",
   },
   {
     label: "Sale",
-    value: "sale",
+    value: "SALE",
   },
 ];
 
@@ -53,7 +58,7 @@ const sortOptions = [
 ];
 
 export const EmployeeListSearch = (props) => {
-  const { onFiltersChange, onSortChange, sortBy, sortDir } = props;
+  const { onFiltersChange, onSortChange, sortBy, sortDir, setQuery, setRole } = props;
   const queryRef = useRef(null);
   const [currentTab, setCurrentTab] = useState("all");
   const [filters, setFilters] = useState({});
@@ -67,29 +72,41 @@ export const EmployeeListSearch = (props) => {
   }, [filters, handleFiltersUpdate]);
 
   const handleTabsChange = useCallback((event, value) => {
+    //console.log("Value in handleTabsChange", value); // In ra giá trị của value
+    setRole(value); // Cập nhật giá trị role trong state cha
+
     setCurrentTab(value);
-    setFilters((prevState) => {
-      const updatedFilters = {
-        ...prevState,
-        role: undefined,
-      };
+    // setFilters((prevState) => {
+    //   const updatedFilters = {
+    //     ...prevState,
+    //     role: undefined,
+    //   };
 
-      if (value !== "all") {
-        updatedFilters.role = value;
-      }
+    //   if (value !== "all") {
+    //     updatedFilters.role = value;
+    //   }
 
-      return updatedFilters;
-    });
+    //   return updatedFilters;
+    // });
   }, []);
+
+  // const handleQueryChange = useCallback((event) => {
+  //   event.preventDefault();
+  //   setFilters((prevState) => ({
+  //     ...prevState,
+  //     query: queryRef.current?.value,
+  //   }));
+  // }, []);
 
   const handleQueryChange = useCallback((event) => {
-    event.preventDefault();
+    const query = event.target.value; // Lấy giá trị từ ô tìm kiếm
+    // console.log("Query in handleQueryChange", query); // In ra giá trị query
+    setQuery(query); // Cập nhật query vào state cha
     setFilters((prevState) => ({
       ...prevState,
-      query: queryRef.current?.value,
+      query, // Cập nhật query vào filters
     }));
   }, []);
-
   const handleSortChange = useCallback(
     (event) => {
       const [sortBy, sortDir] = event.target.value.split("|");
@@ -120,7 +137,7 @@ export const EmployeeListSearch = (props) => {
       <Divider />
       <Stack alignItems="center" direction="row" flexWrap="wrap" spacing={3} sx={{ p: 3 }}>
         <Box component="form" onSubmit={handleQueryChange} sx={{ flexGrow: 1 }}>
-          <OutlinedInput
+          {/* <OutlinedInput
             defaultValue=""
             fullWidth
             inputProps={{ ref: queryRef }}
@@ -132,9 +149,23 @@ export const EmployeeListSearch = (props) => {
                 </SvgIcon>
               </InputAdornment>
             }
+          /> */}
+          <OutlinedInput
+            defaultValue=""
+            fullWidth
+            inputProps={{ ref: queryRef }}
+            placeholder="Tìm kiếm nhân viên"
+            startAdornment={
+              <InputAdornment position="start">
+                <SvgIcon>
+                  <SearchMdIcon />
+                </SvgIcon>
+              </InputAdornment>
+            }
+            onChange={handleQueryChange} // Gọi handleQueryChange khi nhập
           />
         </Box>
-        <TextField
+        {/* <TextField
           label="Sort By"
           name="sort"
           onChange={handleSortChange}
@@ -147,7 +178,7 @@ export const EmployeeListSearch = (props) => {
               {option.label}
             </option>
           ))}
-        </TextField>
+        </TextField> */}
       </Stack>
     </>
   );

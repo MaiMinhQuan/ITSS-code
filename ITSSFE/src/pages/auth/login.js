@@ -24,7 +24,7 @@ import { Layout as AuthLayout } from "src/layouts/auth/layout";
 
 const initialValues = {
   gmail: "admin@gmail.com",
-  password: "admin"
+  password: "admin",
 };
 
 // Validate credentials
@@ -59,15 +59,15 @@ const Page = () => {
       <CardHeader
         subheader={
           <Typography color="text.secondary" variant="body2">
-            Don`&lsquot have an account yet?
+            Chưa có tài khoản?
             <Link href="/auth/register" underline="hover" variant="subtitle2">
               {" "}
-              Register
+              Đăng ký
             </Link>
           </Typography>
         }
         sx={{ pb: 0 }}
-        title="Log in"
+        title="Đăng nhập"
       />
 
       {/* Form's content */}
@@ -78,7 +78,7 @@ const Page = () => {
               error={!!(formik.touched.gmail && formik.errors.gmail)}
               fullWidth
               helperText={formik.touched.gmail && formik.errors.gmail}
-              label="Email Address"
+              label="Email"
               name="gmail"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -89,7 +89,7 @@ const Page = () => {
               error={!!(formik.touched.password && formik.errors.password)}
               fullWidth
               helperText={formik.touched.password && formik.errors.password}
-              label="Password"
+              label="Mật khẩu"
               name="password"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -103,7 +103,7 @@ const Page = () => {
             </Typography>
           )}
           <Button fullWidth size="large" sx={{ mt: 2 }} type="submit" variant="contained">
-            Log In
+            Đăng nhập
           </Button>
           <Box
             sx={{
@@ -113,7 +113,7 @@ const Page = () => {
             }}
           >
             <Link href="/auth/forgot-password" underline="hover" variant="subtitle2">
-              Forgot password?
+              Quên mật khẩu?
             </Link>
           </Box>
         </form>

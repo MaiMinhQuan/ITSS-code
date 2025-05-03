@@ -21,7 +21,13 @@ export function createPalette() {
     info,
     mode: "light",
     neutral,
-    primary: indigo,
+    // primary: indigo,
+    primary: {
+      main: "#FF7F50", // Màu chính (primary)
+      light: "#FFA07A", // Màu sáng hơn (tùy chọn)
+      dark: "#FF9A76", // Màu tối hơn (tùy chọn)
+      contrastText: "#FFFFFF", // Màu chữ tương phản (tùy chọn)
+    },
     success,
     text: {
       primary: neutral[900],

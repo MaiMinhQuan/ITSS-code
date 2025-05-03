@@ -31,10 +31,11 @@ import { UserCalendar } from "src/sections/user/user-calendar-activity";
 import { UserMember } from "src/sections/user/user-member";
 import { UserLogs } from "src/sections/user/user-logs";
 import { getInitials } from "src/utils/get-initials";
+import packagesApi from "src/api/packages/index.js";
 
 const tabs = [
-  { label: "Details", value: "details" },
-  { label: "Activity", value: "logs" },
+  { label: "Thông tin chi tiết", value: "details" },
+  { label: "Hoạt động", value: "logs" },
 ];
 
 const useCustomer = () => {
@@ -71,9 +72,9 @@ const useLogs = (register) => {
     try {
       const customerId = route.query.customerID;
       const response_register = await customersApi.getRegisterById(customerId);
-      //console.log("response_register", response_register);
+      console.log("response_register", response_register);
       const response = await customersApi.getProcessById(response_register.id);
-      //console.log("logs123: ", response);
+      console.log("logs123: ", response);
       if (isMounted()) {
         setLogs(response);
       }
@@ -86,6 +87,7 @@ const useLogs = (register) => {
     async (newLog) => {
       try {
         //const { customerId } = route.query;
+        console.log("newLog in addLog", newLog);
         const customerId = route.query.customerID; // Sử dụng route để lấy customerID
         const response = await customersApi.addProcessById(customerId, newLog);
         if (isMounted.current) {
@@ -106,7 +108,7 @@ const useLogs = (register) => {
     getLogs();
   }, [getLogs]);
 
-  return { logs, addLog };
+  return { logs, addLog, getLogs };
 };
 
 const useRegister = () => {
@@ -118,6 +120,9 @@ const useRegister = () => {
     try {
       const customerId = route.query.customerID;
       const response = await customersApi.getRegisterById(customerId);
+      const response_package = await packagesApi.getPackageById(response.my_package_id);
+      //console.log("response_package", response_package);
+      response.time = response_package.time;
       if (isMounted()) {
         setRegister(response);
       }
@@ -138,7 +143,8 @@ const Page = () => {
   const customer = useCustomer();
   const register = useRegister();
   //console.log("register in Page", register);
-  const { logs, addLog } = useLogs(register);
+  const { logs, addLog, getLogs } = useLogs(register);
+  const registerId = register ? register.id : null;
   console.log("logs in Page", logs);
   // console.log("Hello");
   const role = "ADMIN";
@@ -156,7 +162,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Dashboard: Customer Details</title>
+        <title>Dashboard: Thông tin khách hàng</title>
       </Head>
       <Box
         component="main"
@@ -182,7 +188,7 @@ const Page = () => {
                   <SvgIcon sx={{ mr: 1 }}>
                     <ArrowLeftIcon />
                   </SvgIcon>
-                  <Typography variant="subtitle2">Customers</Typography>
+                  <Typography variant="subtitle2">Danh sách khách hàng</Typography>
                 </Link>
               </div>
               <Stack
@@ -222,7 +228,7 @@ const Page = () => {
                       }
                       href={paths.customers.edit(customer.id)}
                     >
-                      Edit
+                      Cập nhật
                     </Button>
                   </Stack>
                 )}
@@ -264,7 +270,13 @@ const Page = () => {
             {currentTab === "logs" && (
               <Stack spacing={4}>
                 <UserCalendar activity={logs} />
-                <UserLogs register={register} logs={logs} addLog={addLog} />
+                <UserLogs
+                  register={register}
+                  logs={logs}
+                  addLog={addLog}
+                  getLogs={getLogs}
+                  registerId={registerId}
+                />
               </Stack>
             )}
           </Stack>

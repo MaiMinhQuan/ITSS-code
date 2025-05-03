@@ -88,8 +88,8 @@ export const EmployeeEditForm = (props) => {
     validationSchema: Yup.object({
       gender: Yup.string(),
       birth: Yup.string(),
-      gmail: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
-      first_name: Yup.string().max(255).required("Name is required"),
+      gmail: Yup.string().email("Email phải hợp lệ").max(255).required("Yêu cầu nhập email"),
+      first_name: Yup.string().max(255).required("Yêu cầu nhập tên"),
       last_name: Yup.string().max(255),
       phone: Yup.string().max(15),
     }),
@@ -109,12 +109,12 @@ export const EmployeeEditForm = (props) => {
         await wait(500);
         helpers.setStatus({ success: true });
         helpers.setSubmitting(false);
-        toast.success("Staff updated");
+        toast.success("Cập nhật thành công");
         console.log("update successfully");
         router.push(paths.staff.details(staff.id));
       } catch (err) {
         console.error(err);
-        toast.error("Something went wrong!");
+        toast.error("Lỗi!");
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
         helpers.setSubmitting(false);
@@ -126,7 +126,7 @@ export const EmployeeEditForm = (props) => {
     <form onSubmit={formik.handleSubmit} {...other}>
       <Card>
         {/* CardHeader */}
-        <CardHeader title="Edit Staff" />
+        <CardHeader title="Cập nhật thông tin nhân viên" />
 
         {/* CardContent */}
         <CardContent sx={{ pt: 0 }}>
@@ -137,7 +137,7 @@ export const EmployeeEditForm = (props) => {
                 error={!!(formik.touched.first_name && formik.errors.first_name)}
                 fullWidth
                 helperText={formik.touched.first_name && formik.errors.first_name}
-                label="First name"
+                label="Họ"
                 name="first_name"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -150,7 +150,7 @@ export const EmployeeEditForm = (props) => {
                 error={!!(formik.touched.last_name && formik.errors.last_name)}
                 fullWidth
                 helperText={formik.touched.last_name && formik.errors.last_name}
-                label="Last name"
+                label="Tên"
                 name="last_name"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -163,7 +163,7 @@ export const EmployeeEditForm = (props) => {
                 error={!!(formik.touched.gmail && formik.errors.gmail)}
                 fullWidth
                 helperText={formik.touched.gmail && formik.errors.gmail}
-                label="Email address"
+                label="Email"
                 name="gmail"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -177,7 +177,7 @@ export const EmployeeEditForm = (props) => {
                 error={!!(formik.touched.password && formik.errors.password)}
                 fullWidth
                 helperText={formik.touched.password && formik.errors.password}
-                label="Password"
+                label="Mật khẩu"
                 name="password"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -190,7 +190,7 @@ export const EmployeeEditForm = (props) => {
                 error={!!(formik.touched.phone && formik.errors.phone)}
                 fullWidth
                 helperText={formik.touched.phone && formik.errors.phone}
-                label="Phone number"
+                label="Số điện thoại"
                 name="phone"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -204,17 +204,17 @@ export const EmployeeEditForm = (props) => {
                 error={!!(formik.touched.gender && formik.errors.gender)}
                 fullWidth
                 helperText={formik.touched.gender && formik.errors.gender}
-                label="Gender"
+                label="Giới tính"
                 name="gender"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 value={formik.values.gender}
               >
                 <MenuItem key={"male"} value={"male"}>
-                  Male
+                  Nam
                 </MenuItem>
                 <MenuItem key={"female"} value={"female"}>
-                  Female
+                  Nữ
                 </MenuItem>
               </TextField>
             </Grid>
@@ -224,7 +224,7 @@ export const EmployeeEditForm = (props) => {
                 error={!!(formik.touched.birth && formik.errors.birth)}
                 fullWidth
                 helperText={formik.touched.birth && formik.errors.birth}
-                label="Birthday"
+                label="Sinh nhật"
                 name="birth"
                 type="date"
                 onBlur={formik.handleBlur}
@@ -239,7 +239,7 @@ export const EmployeeEditForm = (props) => {
                 error={!!(formik.touched.role_id && formik.errors.role_id)}
                 fullWidth
                 helperText={formik.touched.role_id && formik.errors.role_id}
-                label="Role"
+                label="Vai trò"
                 name="role_id"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -286,7 +286,7 @@ export const EmployeeEditForm = (props) => {
           sx={{ p: 3 }}
         >
           <Button disabled={formik.isSubmitting} type="submit" variant="contained">
-            Save Changes
+            Lưu
           </Button>
           {staff ? (
             <Button
@@ -295,7 +295,7 @@ export const EmployeeEditForm = (props) => {
               disabled={formik.isSubmitting}
               href={paths.staff.details(staff.id)}
             >
-              Cancel
+              Hủy
             </Button>
           ) : (
             <Button color="inherit" disabled={formik.isSubmitting} onClick={onClose}>

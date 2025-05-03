@@ -16,7 +16,7 @@ import "react-calendar/dist/Calendar.css";
 
 export const UserCalendar = (props) => {
   const { activity = [], ...other } = props;
-  console.log("activity in UserCalendar", activity);
+  // console.log("activity in UserCalendar", activity);
   const mdUp = useMediaQuery((theme) => theme.breakpoints.up("md"));
   const date = new Date();
 
@@ -28,9 +28,27 @@ export const UserCalendar = (props) => {
   //   markedDates = activity.process.map((item) => item.createdAt.slice(0, 10));
 
   if (activity) markedDates = activity.map((item) => item.created_at.slice(0, 10));
+  //console.log("markedDates", markedDates);
 
+  // const tileContent = ({ date }) => {
+  //   if (markedDates.includes(date.toISOString().slice(0, 10))) {
+  //     return (
+  //       <div
+  //         style={{
+  //           backgroundColor: "red",
+  //           borderRadius: "50%",
+  //           width: "80%",
+  //           height: "80%",
+  //           margin: "10%",
+  //         }}
+  //       />
+  //     );
+  //   }
+  // };
   const tileContent = ({ date }) => {
-    if (markedDates.includes(date.toISOString().slice(0, 10))) {
+    // Chuyển ngày thành chuỗi định dạng YYYY-MM-DD theo múi giờ địa phương
+    const formattedDate = date.toLocaleDateString("en-CA"); // Định dạng YYYY-MM-DD
+    if (markedDates.includes(formattedDate)) {
       return (
         <div
           style={{
@@ -65,7 +83,7 @@ export const UserCalendar = (props) => {
 
   return (
     <Card {...props}>
-      <CardHeader title="Calendar" />
+      <CardHeader title="Lịch" />
       <Stack container spacing={4}>
         <Box display="flex" justifyContent="center">
           <Calendar
@@ -75,7 +93,7 @@ export const UserCalendar = (props) => {
           />
         </Box>
         <Typography variant="body1" align="center">
-          {`This month you have trained ${count} sessions. Let's keep trying !`}
+          {`Tháng này bạn có ${count} buổi tập. Hãy cố gắng lên nhé !`}
         </Typography>
       </Stack>
     </Card>

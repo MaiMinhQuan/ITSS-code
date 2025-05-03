@@ -55,7 +55,7 @@ export const SocialCommentAdd = (props) => {
             fullWidth
             multiline
             value={value}
-            placeholder="Type your reply"
+            placeholder="Nhập phản hồi của bạn..."
             rows={3}
             variant="outlined"
             onChange={handleChange}
@@ -69,7 +69,7 @@ export const SocialCommentAdd = (props) => {
                   </SvgIcon>
                 </IconButton>
               )}
-              {smUp && (
+              {/* {smUp && (
                 <>
                   <IconButton>
                     <SvgIcon>
@@ -92,11 +92,11 @@ export const SocialCommentAdd = (props) => {
                     </SvgIcon>
                   </IconButton>
                 </>
-              )}
+              )} */}
             </Stack>
             <div>
               <Button variant="contained" onClick={onClickSend}>
-                Send
+                Gửi phản hồi
               </Button>
             </div>
           </Stack>

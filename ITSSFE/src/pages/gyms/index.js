@@ -125,7 +125,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Dashboard: Gym Room</title>
+        <title>Dashboard: Phòng tập</title>
       </Head>
       <Box
         component="main"
@@ -138,8 +138,8 @@ const Page = () => {
           <Stack spacing={4}>
             <Stack direction="row" justifyContent="space-between" spacing={4}>
               <Stack spacing={1}>
-                <Typography variant="h4">Gyms</Typography>
-                <Stack alignItems="center" direction="row" spacing={1}>
+                <Typography variant="h4">Phòng tập</Typography>
+                {/* <Stack alignItems="center" direction="row" spacing={1}>
                   <Button
                     color="inherit"
                     size="small"
@@ -162,7 +162,7 @@ const Page = () => {
                   >
                     Export
                   </Button>
-                </Stack>
+                </Stack> */}
               </Stack>
               <Stack alignItems="center" direction="row" spacing={3}>
                 <Button
@@ -176,7 +176,7 @@ const Page = () => {
                     setOpenModalCreate(true);
                   }}
                 >
-                  Create room
+                  Thêm mới
                 </Button>
               </Stack>
             </Stack>

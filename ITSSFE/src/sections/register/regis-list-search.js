@@ -26,7 +26,7 @@ const sortOptions = [
 ];
 
 export const RegisListSearch = (props) => {
-  const { onFiltersChange, onSortChange, sortBy = "created_at", sortDir} = props;
+  const { onFiltersChange, onSortChange, sortBy = "created_at", sortDir } = props;
   const queryRef = useRef(null);
   const [filters, setFilters] = useState({
     query: undefined,
@@ -43,7 +43,9 @@ export const RegisListSearch = (props) => {
 
   const handleQueryChange = useCallback((event) => {
     event.preventDefault();
-    const query = queryRef.current?.value || "";
+    //const query = queryRef.current?.value || "";
+    const query = event.target.value;
+    console.log("query in regis: ", query);
     setFilters((prevState) => ({
       ...prevState,
       query,
@@ -68,7 +70,7 @@ export const RegisListSearch = (props) => {
             fullWidth
             inputProps={{ ref: queryRef }}
             name="regisNumber"
-            placeholder="Search by customer name"
+            placeholder="Tìm kiếm theo tên khách hàng"
             startAdornment={
               <InputAdornment position="start">
                 <SvgIcon>
@@ -76,9 +78,10 @@ export const RegisListSearch = (props) => {
                 </SvgIcon>
               </InputAdornment>
             }
+            onChange={handleQueryChange}
           />
         </Box>
-        <TextField
+        {/* <TextField
           label="Sort By"
           name="sort"
           onChange={handleSortChange}
@@ -91,7 +94,7 @@ export const RegisListSearch = (props) => {
               {option.label}
             </option>
           ))}
-        </TextField>
+        </TextField> */}
       </Stack>
     </div>
   );

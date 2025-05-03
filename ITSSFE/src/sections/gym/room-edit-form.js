@@ -49,11 +49,11 @@ export const RoomEditForm = (props) => {
           await wait(500);
           helpers.setStatus({ success: true });
           helpers.setSubmitting(false);
-          toast.success("Room updated");
+          toast.success("Thành công");
         }
       } catch (err) {
         console.error(err);
-        toast.error("Something went wrong!");
+        toast.error("Lỗi!");
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
         helpers.setSubmitting(false);
@@ -64,14 +64,14 @@ export const RoomEditForm = (props) => {
   return (
     <form onSubmit={formik.handleSubmit} {...other}>
       <Card sx={{ width: "400px" }}>
-        <CardHeader title="Edit room" />
+        <CardHeader title="Cập nhật thông tin" />
         <CardContent sx={{ pt: 0 }}>
           <Stack container="true" spacing={3}>
             <TextField
               error={!!(formik.touched.name && formik.errors.name)}
               fullWidth
               helperText={formik.touched.name && formik.errors.name}
-              label="Room name"
+              label="Tên phòng tập"
               name="name"
               value={formik.values.name}
               onBlur={formik.handleBlur}
@@ -82,7 +82,7 @@ export const RoomEditForm = (props) => {
               error={!!(formik.touched.address && formik.errors.address)}
               fullWidth
               helperText={formik.touched.address && formik.errors.address}
-              label="Address"
+              label="Địa chỉ"
               name="address"
               value={formik.values.address}
               onBlur={formik.handleBlur}
@@ -92,7 +92,7 @@ export const RoomEditForm = (props) => {
               error={!!(formik.touched.acreage && formik.errors.acreage)}
               fullWidth
               helperText={formik.touched.acreage && formik.errors.acreage}
-              label="Acreage"
+              label="Diện tích"
               name="acreage"
               value={formik.values.acreage}
               type="number"
@@ -116,10 +116,10 @@ export const RoomEditForm = (props) => {
             variant="contained"
             onClick={onClose}
           >
-            Edit
+            Cập nhật
           </Button>
           <Button color="inherit" disabled={formik.isSubmitting} onClick={onClose}>
-            Cancel
+            Hủy
           </Button>
         </Stack>
       </Card>

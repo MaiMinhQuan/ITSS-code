@@ -24,7 +24,7 @@ export const RegisDetails = (props) => {
     <Stack spacing={6}>
       <Stack spacing={3}>
         <Stack alignItems="center" direction="row" justifyContent="space-between" spacing={3}>
-          <Typography variant="h6">Details</Typography>
+          <Typography variant="h6">Chi tiết</Typography>
           {editable && (
             <Button
               color="inherit"
@@ -36,7 +36,7 @@ export const RegisDetails = (props) => {
                 </SvgIcon>
               }
             >
-              Edit
+              Cập nhật
             </Button>
           )}
         </Stack>
@@ -45,10 +45,10 @@ export const RegisDetails = (props) => {
             align={align}
             disableGutters
             divider
-            label="Created By"
+            label="Tạo bởi"
             value={regis.register_by_name}
           />
-          <PropertyListItem align={align} disableGutters divider label="Customer">
+          <PropertyListItem align={align} disableGutters divider label="Khách hàng">
             <Typography color="text.secondary" variant="body2">
               {regis.customer_name}
             </Typography>
@@ -60,28 +60,28 @@ export const RegisDetails = (props) => {
             align={align}
             disableGutters
             divider
-            label="Date"
-            value={regis.created_at}
+            label="Ngày"
+            value={regis.created_at.slice(0, 10)}
           />
           <PropertyListItem
             align={align}
             disableGutters
             divider
-            label="Coach"
+            label="Huấn luyện viên"
             value={regis.trainer_name}
           />
           <PropertyListItem
             align={align}
             disableGutters
             divider
-            label="Package"
+            label="Gói tập"
             value={regis.my_package_name}
           />
           <PropertyListItem
             align={align}
             disableGutters
             divider
-            label="Total Amount"
+            label="Giá tiền"
             value={totalAmount}
           />
         </PropertyList>

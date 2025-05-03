@@ -1,4 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
+import { vi } from "date-fns/locale";
 import PropTypes from "prop-types";
 import ArrowRightIcon from "@heroicons/react/24/solid/ArrowRightIcon";
 import EllipsisVerticalIcon from "@heroicons/react/24/solid/EllipsisVerticalIcon";
@@ -22,11 +23,12 @@ export const OverviewLatestProducts = (props) => {
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Latest Products" />
+      <CardHeader title="Thiết bị mới nhất" />
       <List>
         {products.map((product, index) => {
           const hasDivider = index < products.length - 1;
-          const ago = formatDistanceToNow(product.updatedAt);
+          // const ago = formatDistanceToNow(product.updatedAt);
+          const ago = formatDistanceToNow(product.updatedAt, { locale: vi });
 
           return (
             <ListItem divider={hasDivider} key={product.id}>
@@ -55,7 +57,7 @@ export const OverviewLatestProducts = (props) => {
               <ListItemText
                 primary={product.name}
                 primaryTypographyProps={{ variant: "subtitle1" }}
-                secondary={`Updated ${ago} ago`}
+                secondary={`Cập nhật ${ago} trước`}
                 secondaryTypographyProps={{ variant: "body2" }}
               />
               <IconButton edge="end">
@@ -79,7 +81,7 @@ export const OverviewLatestProducts = (props) => {
           size="small"
           variant="text"
         >
-          View all
+          Xem tất cả
         </Button>
       </CardActions>
     </Card>

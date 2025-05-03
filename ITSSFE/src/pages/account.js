@@ -10,7 +10,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Account | GymCenter</title>
+        <title>Tài khoản</title>
       </Head>
       <Box
         component="main"
@@ -22,7 +22,7 @@ const Page = () => {
         <Container maxWidth="lg">
           <Stack spacing={3}>
             <div>
-              <Typography variant="h4">Account</Typography>
+              <Typography variant="h4">Tài khoản</Typography>
             </div>
             <div>
               <Grid container spacing={3}>

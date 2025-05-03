@@ -73,15 +73,15 @@ const Page = () => {
       <CardHeader
         subheader={
           <Typography color="text.secondary" variant="body2">
-            Already have an account?
+            Bạn đã có tài khoản?{" "}
             <Link href="/auth/login" underline="hover" variant="subtitle2">
               {" "}
-              Log in
+              Đăng nhập
             </Link>
           </Typography>
         }
         sx={{ pb: 0 }}
-        title="Register"
+        title="Đăng ký"
       />
 
       {/*Form's content*/}
@@ -92,7 +92,7 @@ const Page = () => {
               error={!!(formik.touched.gmail && formik.errors.gmail)}
               fullWidth
               helperText={formik.touched.gmail && formik.errors.gmail}
-              label="Email Address"
+              label="Email"
               name="gmail"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -103,7 +103,7 @@ const Page = () => {
               error={!!(formik.touched.firstName && formik.errors.firstName)}
               fullWidth
               helperText={formik.touched.firstName && formik.errors.firstName}
-              label="First Name"
+              label="Họ"
               name="firstName"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -113,7 +113,7 @@ const Page = () => {
               error={!!(formik.touched.lastName && formik.errors.lastName)}
               fullWidth
               helperText={formik.touched.lastName && formik.errors.lastName}
-              label="Last Name"
+              label="Tên"
               name="lastName"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -124,7 +124,7 @@ const Page = () => {
               error={!!(formik.touched.birth && formik.errors.birth)}
               fullWidth
               helperText={formik.touched.birth && formik.errors.birth}
-              label="Birth"
+              label="Ngày sinh"
               name="birth"
               type="date"
               onBlur={formik.handleBlur}
@@ -137,17 +137,17 @@ const Page = () => {
               error={!!(formik.touched.gender && formik.errors.gender)}
               fullWidth
               helperText={formik.touched.gender && formik.errors.gender}
-              label="Gender"
+              label="Giới tính"
               name="gender"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               value={formik.values.gender}
             >
               <MenuItem key={"male"} value={"male"}>
-                Male
+                Nam
               </MenuItem>
               <MenuItem key={"female"} value={"female"}>
-                Female
+                Nữ
               </MenuItem>
             </TextField>
 
@@ -155,7 +155,7 @@ const Page = () => {
               error={!!(formik.touched.phone && formik.errors.phone)}
               fullWidth
               helperText={formik.touched.phone && formik.errors.phone}
-              label="Phone"
+              label="Số điện thoại"
               name="phone"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -184,7 +184,7 @@ const Page = () => {
               error={!!(formik.touched.password && formik.errors.password)}
               fullWidth
               helperText={formik.touched.password && formik.errors.password}
-              label="Password"
+              label="Mật khẩu"
               name="password"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -195,7 +195,7 @@ const Page = () => {
               error={!!(formik.touched.confirmPass && formik.errors.confirmPass)}
               fullWidth
               helperText={formik.touched.confirmPass && formik.errors.confirmPass}
-              label="Confirm Password"
+              label="Xác nhận mật khẩu"
               name="confirmPass"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -212,9 +212,9 @@ const Page = () => {
           >
             <Checkbox checked={formik.values.policy} name="policy" onChange={formik.handleChange} />
             <Typography color="text.secondary" variant="body2">
-              I have read the{" "}
+              Tôi đã đọc{" "}
               <Link component="a" href="#">
-                Terms and Conditions
+                các chính sách và điều khoản
               </Link>
             </Typography>
           </Box>
@@ -222,7 +222,7 @@ const Page = () => {
             <FormHelperText error>{formik.errors.policy}</FormHelperText>
           )}
           <Button fullWidth size="large" sx={{ mt: 2 }} type="submit" variant="contained">
-            Register
+            Đăng ký
           </Button>
         </form>
       </CardContent>

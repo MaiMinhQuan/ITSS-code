@@ -5,9 +5,8 @@ import { Box, Chip, Divider, Input, Stack, SvgIcon, Typography } from "@mui/mate
 import { MultiSelect } from "src/components/multi-select";
 import { useUpdateEffect } from "src/hooks/use-update-effect";
 
-
 export const PackageListSearch = (props) => {
-  const { onFiltersChange, ...other } = props;
+  const { onFiltersChange, setQuery1, ...other } = props;
   const queryRef = useRef(null);
   const [query, setQuery] = useState("");
   const [chips, setChips] = useState([]);
@@ -51,6 +50,9 @@ export const PackageListSearch = (props) => {
 
   const handleQueryChange = useCallback((event) => {
     event.preventDefault();
+    const query = event.target.value;
+    //console.log("query in package: ", query);
+    setQuery1(query);
     setQuery(queryRef.current?.value || "");
   }, []);
 
@@ -71,9 +73,10 @@ export const PackageListSearch = (props) => {
           disableUnderline
           fullWidth
           inputProps={{ ref: queryRef }}
-          placeholder="Search by package name"
+          placeholder="Tìm kiếm theo tên gói tập"
           sx={{ flexGrow: 1 }}
           value={query}
+          onChange={handleQueryChange}
         />
       </Stack>
     </div>

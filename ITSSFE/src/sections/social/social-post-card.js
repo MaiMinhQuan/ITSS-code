@@ -36,7 +36,7 @@ export const SocialPostCard = (props) => {
             </SvgIcon>
             <Typography color="text.secondary" variant="caption">
               {/* {formatDistanceToNowStrict(createdAt)} ago */}
-              {createdAt}
+              {createdAt.slice(0, 10)}
             </Typography>
           </Stack>
         }
@@ -45,7 +45,7 @@ export const SocialPostCard = (props) => {
             <Link color="text.primary" href="#" variant="subtitle2">
               {authorName}
             </Link>
-            <Typography variant="body2">updated status</Typography>
+            <Typography variant="body2">cập nhật trạng thái</Typography>
           </Stack>
         }
       />
@@ -70,7 +70,7 @@ export const SocialPostCard = (props) => {
             <SocialComment
               authorAvatar={comment.author.avatar}
               authorName={comment.author.name}
-              createdAt={comment.createdAt}
+              createdAt={comment.createdAt.slice(0, 10)}
               key={comment.id}
               message={comment.message}
             />

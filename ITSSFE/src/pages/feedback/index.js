@@ -53,7 +53,7 @@ const SocialFeed = () => {
   return (
     <>
       <Head>
-        <title>Dashboard: Feedback</title>
+        <title>Dashboard: Phản hồi</title>
       </Head>
       <Box
         component="main"
@@ -64,12 +64,10 @@ const SocialFeed = () => {
       >
         <Container maxWidth="lg">
           <Stack spacing={1}>
-            <Typography color="text.secondary" variant="overline">
+            {/* <Typography color="text.secondary" variant="overline">
               Feedback
-            </Typography>
-            <Typography variant="h4">
-              Feedback for you to get a better service experience
-            </Typography>
+            </Typography> */}
+            <Typography variant="h4">Hãy phản hồi để chúng tôi phục vụ bạn tốt hơn</Typography>
           </Stack>
           <Stack spacing={3} sx={{ mt: 3 }}>
             <SocialPostAdd createPost={createPost} />

@@ -21,7 +21,7 @@ export const items = {
       ),
     },
     {
-      title: "Staff",
+      title: "Nhân viên",
       path: "/staff",
       icon: (
         <SvgIcon fontSize="small">
@@ -30,7 +30,7 @@ export const items = {
       ),
     },
     {
-      title: "Gyms",
+      title: "Phòng tập",
       path: "/gyms",
       icon: (
         <SvgIcon fontSize="small">
@@ -39,7 +39,7 @@ export const items = {
       ),
     },
     {
-      title: "Customers",
+      title: "Khách hàng",
       path: "/customers",
       icon: (
         <SvgIcon fontSize="small">
@@ -48,7 +48,7 @@ export const items = {
       ),
     },
     {
-      title: "Registers",
+      title: "Đăng ký gói tập",
       path: "/registers",
       icon: (
         <SvgIcon fontSize="small">
@@ -57,7 +57,7 @@ export const items = {
       ),
     },
     {
-      title: "Feedback",
+      title: "Phản hồi",
       path: "/feedback",
       icon: (
         <SvgIcon fontSize="small">
@@ -66,7 +66,7 @@ export const items = {
       ),
     },
     {
-      title: "Packages",
+      title: "Quản lý gói tập",
       path: "/packages",
       icon: (
         <SvgIcon fontSize="small">
@@ -78,7 +78,7 @@ export const items = {
 
   employee: [
     {
-      title: "Overview",
+      title: "Tổng quan",
       path: "/dashboard/employee",
       icon: (
         <SvgIcon fontSize="small">
@@ -87,7 +87,7 @@ export const items = {
       ),
     },
     {
-      title: "Customers",
+      title: "Khách hàng",
       path: "/customers",
       icon: (
         <SvgIcon fontSize="small">
@@ -96,7 +96,7 @@ export const items = {
       ),
     },
     {
-      title: "Registers",
+      title: "Đăng ký gói tập",
       path: "/registers",
       icon: (
         <SvgIcon fontSize="small">
@@ -105,7 +105,7 @@ export const items = {
       ),
     },
     {
-      title: "Feedback",
+      title: "Phản hồi",
       path: "/feedback",
       icon: (
         <SvgIcon fontSize="small">
@@ -114,7 +114,7 @@ export const items = {
       ),
     },
     {
-      title: "Packages",
+      title: "Quản lý gói tập",
       path: "/packages",
       icon: (
         <SvgIcon fontSize="small">
@@ -126,7 +126,7 @@ export const items = {
 
   coach: [
     {
-      title: "Overview",
+      title: "Tổng quan",
       path: "/dashboard/employee",
       icon: (
         <SvgIcon fontSize="small">
@@ -144,7 +144,7 @@ export const items = {
       ),
     },
     {
-      title: "Feedback",
+      title: "Phản hồi",
       path: "/feedback",
       icon: (
         <SvgIcon fontSize="small">
@@ -165,7 +165,7 @@ export const items = {
 
   user: [
     {
-      title: "Overview",
+      title: "Tổng quan",
       path: "/dashboard/user",
       icon: (
         <SvgIcon fontSize="small">
@@ -174,20 +174,11 @@ export const items = {
       ),
     },
     {
-      title: "Feedback",
+      title: "Phản hồi",
       path: "/feedback",
       icon: (
         <SvgIcon fontSize="small">
           <FeedIcon />
-        </SvgIcon>
-      ),
-    },
-    {
-      title: "Packages",
-      path: "/packages",
-      icon: (
-        <SvgIcon fontSize="small">
-          <CardTravelIcon />
         </SvgIcon>
       ),
     },

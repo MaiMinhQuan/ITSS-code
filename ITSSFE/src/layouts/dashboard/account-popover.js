@@ -66,7 +66,7 @@ export const AccountPopover = (props) => {
               <AccountCircleOutlinedIcon />
             </SvgIcon>
           </ListItemIcon>
-          <ListItemText primary={<Typography variant="body1">Profile</Typography>} />
+          <ListItemText primary={<Typography variant="body1">Hồ sơ</Typography>} />
         </ListItemButton>
         <ListItemButton
           component={NextLink}
@@ -82,7 +82,7 @@ export const AccountPopover = (props) => {
               <SettingsOutlinedIcon />
             </SvgIcon>
           </ListItemIcon>
-          <ListItemText primary={<Typography variant="body1">Settings</Typography>} />
+          <ListItemText primary={<Typography variant="body1">Cài đặt</Typography>} />
         </ListItemButton>
         <Divider sx={{ my: "0 !important" }} />
         <ListItemButton
@@ -98,7 +98,10 @@ export const AccountPopover = (props) => {
               <LogoutOutlinedIcon />
             </SvgIcon>
           </ListItemIcon>
-          <ListItemText color="inherit" primary={<Typography variant="body1">Logout</Typography>} />
+          <ListItemText
+            color="inherit"
+            primary={<Typography variant="body1">Đăng xuất</Typography>}
+          />
         </ListItemButton>
       </Box>
     </Popover>

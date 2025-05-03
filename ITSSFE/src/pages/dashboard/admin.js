@@ -16,7 +16,7 @@ const date = new Date();
 const Page = () => (
   <>
     <Head>
-      <title>Overview | GymCenter</title>
+      <title>Overview</title>
     </Head>
     <Box
       component="main"
@@ -26,56 +26,30 @@ const Page = () => (
       }}
     >
       <Container maxWidth="xl">
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            xs={12}
-            sm={6}
-            lg={4}
-          >
-            <OverviewBudget
-              difference={12}
-              positive
-              sx={{ height: '100%' }}
-              value="$24k"
-            />
+        <Grid container spacing={3}>
+          <Grid xs={12} sm={6} lg={4}>
+            <OverviewBudget difference={8} positive sx={{ height: "100%" }} value="980.000.000đ" />
           </Grid>
-          <Grid
-            xs={12}
-            sm={6}
-            lg={4}
-          >
+          <Grid xs={12} sm={6} lg={4}>
             <OverviewTotalCustomers
-              difference={16}
-              positive={false}
+              difference={10}
+              positive={true}
               sx={{ height: "100%" }}
-              value="1.6k"
+              value="500"
             />
           </Grid>
-          <Grid
-            xs={12}
-            sm={6}
-            lg={4}
-          >
-            <OverviewTotalProfit
-              sx={{ height: '100%' }}
-              value="$15k"
-            />
+          <Grid xs={12} sm={6} lg={4}>
+            <OverviewTotalProfit sx={{ height: "100%" }} value="100.000.000đ" />
           </Grid>
-          <Grid
-            xs={12}
-            lg={12}
-          >
+          <Grid xs={12} lg={12}>
             <OverviewSales
               chartSeries={[
                 {
-                  name: "This year",
-                  data: [18, 16, 5, 8, 3, 14, 14, 16, 17, 19, 18, 20],
+                  name: "2025",
+                  data: [15, 12, 18, 20, 14, 16, 19, 11, 17, 13, 10, 15],
                 },
                 {
-                  name: "Last year",
+                  name: "2024",
                   data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13],
                 },
               ]}

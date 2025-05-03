@@ -53,12 +53,12 @@ export const SocialPostAdd = (props) => {
             <OutlinedInput
               fullWidth
               multiline
-              placeholder="What's on your mind"
+              placeholder="Bạn đang nghĩ gì?"
               rows={3}
               id="postContent"
             />
             <Stack alignItems="center" direction="row" justifyContent="space-between" spacing={3}>
-              {smUp && (
+              {/* {smUp && (
                 <Stack alignItems="center" direction="row" spacing={1}>
                   <IconButton>
                     <SvgIcon>
@@ -81,10 +81,10 @@ export const SocialPostAdd = (props) => {
                     </SvgIcon>
                   </IconButton>
                 </Stack>
-              )}
+              )} */}
               <div>
                 <Button variant="contained" onClick={onClickPost}>
-                  Post
+                  Gửi phản hồi
                 </Button>
               </div>
             </Stack>
