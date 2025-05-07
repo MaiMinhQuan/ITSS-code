@@ -29,13 +29,14 @@ import { useFormik } from "formik";
 
 export const UserLogs = (props) => {
   const { register, logs, addLog, getLogs, registerId, ...other } = props;
+  // console.log("register in user logs", register);
   const [openModal, setOpenModal] = useState(false);
   // const role = useAuth().user.role;
   const role = useAuth().user.role_name;
   // console.log("useAuth", useAuth());
   // console.log("role in user logs", role);
 
-  const trainer = register.trainer_name;
+  const trainer = register ? register.trainer_name : "";
   const activityLogs = logs.map((log) => ({ ...log, trainer_name: trainer }));
   // console.log("activityLogs", activityLogs);
   // console.log("register in user logs", register);
