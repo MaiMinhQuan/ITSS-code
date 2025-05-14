@@ -14,7 +14,8 @@ export const RoomCard = (props) => {
   return (
     <Card variant="outlined">
       <CardMedia
-        image={"/assets/rooms/room-3.png"}
+        // image={"/assets/rooms/room-3.png"}
+        image={`/assets/rooms/room_${room.id % 16 || 16}.jpg`} // Tính toán ảnh dựa trên room.id
         component={NextLink}
         href={paths.gyms.details(room.id || 1)}
         sx={{ height: 180 }}

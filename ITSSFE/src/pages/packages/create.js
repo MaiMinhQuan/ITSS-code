@@ -25,7 +25,7 @@ const PackageCreate = () => {
         <Container maxWidth="xl">
           <Stack spacing={3}>
             <Stack spacing={1}>
-              <Typography variant="h4">Create a new package</Typography>
+              <Typography variant="h4">Tạo gói tập mới</Typography>
               <Breadcrumbs separator={<BreadcrumbsSeparator />}>
                 <Link
                   color="text.primary"
@@ -41,10 +41,10 @@ const PackageCreate = () => {
                   href={paths.packages.index}
                   variant="subtitle2"
                 >
-                  Packages
+                  Gói tập
                 </Link>
                 <Typography color="text.secondary" variant="subtitle2">
-                  Create
+                  Tạo gói tập
                 </Typography>
               </Breadcrumbs>
             </Stack>

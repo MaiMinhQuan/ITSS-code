@@ -40,7 +40,7 @@ export const PackageCreateForm = (props) => {
     onSubmit: async (values, helpers) => {
       try {
         packagesApi.createPackage(values);
-        toast.success("Package created");
+        toast.success("Thành công!");
         router.push(paths.packages.index);
       } catch (err) {
         console.error(err);
@@ -58,7 +58,7 @@ export const PackageCreateForm = (props) => {
         <CardContent>
           <Grid container spacing={3}>
             <Grid xs={12} md={4}>
-              <Typography variant="h6">Package details</Typography>
+              <Typography variant="h6">Chi tiết gói tập</Typography>
             </Grid>
             <Grid xs={12} md={8}>
               <Stack spacing={3}>
@@ -66,7 +66,7 @@ export const PackageCreateForm = (props) => {
                   error={!!(formik.touched.name && formik.errors.name)}
                   fullWidth
                   helperText={formik.touched.name && formik.errors.name}
-                  label="Package Name"
+                  label="Tên gói tập"
                   name="name"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -75,7 +75,7 @@ export const PackageCreateForm = (props) => {
                 <TextField
                   error={!!(formik.touched.price && formik.errors.price)}
                   fullWidth
-                  label="Price"
+                  label="Giá"
                   name="price"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -85,7 +85,7 @@ export const PackageCreateForm = (props) => {
                 <TextField
                   error={!!(formik.touched.time && formik.errors.time)}
                   fullWidth
-                  label="Time"
+                  label="Thời gian (tháng)"
                   name="time"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -96,7 +96,7 @@ export const PackageCreateForm = (props) => {
                   error={!!(formik.touched.description && formik.errors.description)}
                   fullWidth
                   helperText={formik.touched.description && formik.errors.description}
-                  label="Description"
+                  label="Mô tả"
                   name="description"
                   multiline
                   rows={4}
@@ -111,7 +111,7 @@ export const PackageCreateForm = (props) => {
         <CardActions>
           <Stack alignItems="center" direction="row" justifyContent="flex-end" spacing={1}>
             <Button type="submit" variant="contained">
-              Create
+              Tạo gói tập
             </Button>
           </Stack>
         </CardActions>

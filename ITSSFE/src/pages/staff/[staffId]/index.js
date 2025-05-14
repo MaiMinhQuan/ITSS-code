@@ -150,7 +150,7 @@ const Page = () => {
               phone={staff.phone}
               role={staff.role_name}
             />
-            <EmployeeDataManagement id={staff.id} />
+            {/* <EmployeeDataManagement id={staff.id} /> */}
           </Stack>
         </Container>
       </Box>

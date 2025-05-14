@@ -262,7 +262,7 @@ const Page = () => {
                     role={customer.role}
                   />
                   {register && <UserMember register={register} />}
-                  <UserDataManagement id={customer.id} />
+                  {/* <UserDataManagement id={customer.id} /> */}
                 </Stack>
               </div>
             )}
