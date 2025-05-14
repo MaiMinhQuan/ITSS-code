@@ -75,7 +75,7 @@ export const UserEditForm = (props) => {
         helpers.setStatus({ success: true });
         helpers.setSubmitting(false);
         console.log("success");
-        toast.success("Customer updated");
+        toast.success("Thành công");
         router.push(paths.customers.details(customer.id));
       } catch (err) {
         console.error(err);

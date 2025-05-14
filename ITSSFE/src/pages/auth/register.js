@@ -57,7 +57,7 @@ const Page = () => {
       try {
         console.log("values", values);
         await auth.signUp(values); //await auth.signUp(values.email, values.password);
-        toast.success("Sign up successful");
+        toast.success("Thành công");
         router.push("/auth/login");
       } catch (err) {
         helpers.setStatus({ success: false });

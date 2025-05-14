@@ -41,19 +41,36 @@ const Page = () => (
           <Grid xs={12} sm={6} lg={4}>
             <OverviewTotalProfit sx={{ height: "100%" }} value="100.000.000đ" />
           </Grid>
-          <Grid xs={12} lg={12}>
+          <Grid xs={12} lg={6}>
             <OverviewSales
               chartSeries={[
                 {
                   name: "2025",
                   data: [15, 12, 18, 20, 14, 16, 19, 11, 17, 13, 10, 15],
                 },
-                {
-                  name: "2024",
-                  data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13],
-                },
+                // {
+                //   name: "2024",
+                //   data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13],
+                // },
               ]}
               sx={{ height: "100%" }}
+              type="area"
+            />
+          </Grid>
+          <Grid xs={12} lg={6}>
+            <OverviewSales
+              chartSeries={[
+                {
+                  name: "2025",
+                  data: [15, 12, 18, 20, 14, 16, 19, 11, 17, 13, 10, 15],
+                },
+                // {
+                //   name: "2024",
+                //   data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13],
+                // },
+              ]}
+              sx={{ height: "100%" }}
+              type="radar"
             />
           </Grid>
         </Grid>

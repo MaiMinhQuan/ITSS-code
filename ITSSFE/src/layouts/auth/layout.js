@@ -24,9 +24,9 @@ export const Layout = (props) => {
 
   return (
     <LayoutRoot>
-      <Head>
+      {/* <Head>
         <title>Đăng nhập</title>
-      </Head>
+      </Head> */}
       <Box
         component="header"
         sx={{
