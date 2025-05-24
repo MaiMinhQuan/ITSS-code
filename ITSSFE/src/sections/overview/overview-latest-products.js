@@ -57,7 +57,7 @@ export const OverviewLatestProducts = (props) => {
               <ListItemText
                 primary={product.name}
                 primaryTypographyProps={{ variant: "subtitle1" }}
-                secondary={`Cập nhật ${ago} trước`}
+                // secondary={`Cập nhật ${ago} trước`}
                 secondaryTypographyProps={{ variant: "body2" }}
               />
               <IconButton edge="end">

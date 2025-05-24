@@ -66,7 +66,7 @@ const Page = () => (
                   ref: "DEV1049",
                   amount: 30.5,
                   customer: {
-                    name: "Mai Linh",
+                    name: "Trần Lập",
                   },
                   createdAt: "2025-04-14", //1555016400000
                   package: "Gói Senior",
@@ -76,7 +76,7 @@ const Page = () => (
                   ref: "DEV1048",
                   amount: 25.1,
                   customer: {
-                    name: "Mai Đức",
+                    name: "Trần Châu",
                   },
                   createdAt: "2025-04-13",
                   package: "Gói Family",
@@ -86,7 +86,7 @@ const Page = () => (
                   ref: "DEV1047",
                   amount: 10.99,
                   customer: {
-                    name: "Mia Robinson",
+                    name: "Trần Minh",
                   },
                   createdAt: "2025-04-13",
                   package: "Gói Premium",
@@ -96,7 +96,7 @@ const Page = () => (
                   ref: "DEV1046",
                   amount: 96.43,
                   customer: {
-                    name: "Jane Smith",
+                    name: "Phạm Huy",
                   },
                   createdAt: "2025-04-13",
                   package: "Gói VIP",

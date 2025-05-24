@@ -170,6 +170,99 @@ const useChartOptions = (type) => {
       },
     };
   }
+  if (type === "line") {
+    return {
+      chart: {
+        background: "transparent",
+        stacked: false,
+        toolbar: {
+          show: false,
+        },
+      },
+      colors: [alpha("#FF7F50", 0.9), alpha("#FF7F50", 0.25)],
+      dataLabels: {
+        enabled: false,
+      },
+      fill: {
+        opacity: 1,
+        type: "solid",
+      },
+      grid: {
+        borderColor: theme.palette.divider,
+        strokeDashArray: 2,
+        xaxis: {
+          lines: {
+            show: false,
+          },
+        },
+        yaxis: {
+          lines: {
+            show: true,
+          },
+        },
+      },
+      legend: {
+        show: false,
+      },
+      plotOptions: {
+        bar: {
+          columnWidth: "40px",
+        },
+      },
+      // Sửa stroke cho line/area
+      stroke: {
+        colors:
+          type === "line" || type === "area"
+            ? [alpha("#FF7F50", 0.9), alpha("#FF7F50", 0.25)]
+            : ["transparent"],
+        show: true,
+        width: 3,
+        curve: "smooth", // Đường cong mượt cho line/area
+      },
+      theme: {
+        mode: theme.palette.mode,
+      },
+      xaxis: {
+        axisBorder: {
+          color: theme.palette.divider,
+          show: true,
+        },
+        axisTicks: {
+          color: theme.palette.divider,
+          show: true,
+        },
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+        labels: {
+          offsetY: 5,
+          style: {
+            colors: theme.palette.text.secondary,
+          },
+        },
+      },
+      yaxis: {
+        labels: {
+          formatter: (value) => (value > 0 ? `${value}.000.000đ` : `${value}`),
+          offsetX: -10,
+          style: {
+            colors: theme.palette.text.secondary,
+          },
+        },
+      },
+    };
+  }
 };
 
 export const OverviewSales = (props) => {
@@ -192,7 +285,8 @@ export const OverviewSales = (props) => {
         //     Sync
         //   </Button>
         // }
-        title="Doanh thu hàng tháng"
+        title={type === "radar" ? "Doanh thu hàng tháng" : "So sánh doanh thu"}
+        // {type === "radar" ? title ="Doanh thu hàng tháng" : title ="So sánh doanh thu"}
       />
       <CardContent>
         <Chart height={350} options={chartOptions} series={chartSeries} type={type} width="100%" />
